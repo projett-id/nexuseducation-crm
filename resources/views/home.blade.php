@@ -1,535 +1,255 @@
-@extends('layouts.app')
-@section('content')
-<section id="courses-hero" class="courses-hero section light-background">
-  <div class="hero-content">
-    <div class="container">
-      <div class="row align-items-center">
+<!DOCTYPE html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Nexus Education| Application</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="assets/img/ic_logo.png"
+    />
+    <!-- Place favicon.ico in the root directory -->
 
-        <div class="col-lg-12" data-aos="fade-up" data-aos-delay="100">
-          <div class="hero-text text-center">
-            <h1>Empowering Global Education for Indonesian Students</h1>
-            <div class="hero-stats">
+    <!-- ======== CSS here ======== -->
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/lineicons.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}" />
+  </head>
+  <body>
+    <!--[if lte IE 9]>
+      <p class="browserupgrade">
+        You are using an <strong>outdated</strong> browser. Please
+        <a href="https://browsehappy.com/">upgrade your browser</a> to improve
+        your experience and security.
+      </p>
+    <![endif]-->
+
+    <!-- ======== preloader start ======== -->
+    <div class="preloader">
+      <div class="loader">
+        <div class="spinner">
+          <div class="spinner-container">
+            <div class="spinner-rotator">
+              <div class="spinner-left">
+                <div class="spinner-circle"></div>
+              </div>
+              <div class="spinner-right">
+                <div class="spinner-circle"></div>
+              </div>
             </div>
-            <div class="row">
-                <div class="hero-buttons" style="display:inline">
-                  <a href="{{ route('start-your-journey-url') }}" class="btn btn-primary" style="margin-top:5px">Start Your Journey</a>
-                  <a href="{{ route('partner-us-url') }}" class="btn btn-primary" style="margin-top:5px">Partner with Us</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- preloader end -->
+
+    <!-- ======== header start ======== -->
+    <header class="header">
+      <div class="navbar-area">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-lg-12">
+              <nav class="navbar navbar-expand-lg">
+                <a class="navbar-brand" href="index.html">
+                  <img src="{{asset('assets/img/white-logo-horizontal.png')}}" alt="Logo" />
+                </a>
+                <button
+                  class="navbar-toggler"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#navbarSupportedContent"
+                  aria-controls="navbarSupportedContent"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation"
+                >
+                  <span class="toggler-icon"></span>
+                  <span class="toggler-icon"></span>
+                  <span class="toggler-icon"></span>
+                </button>
+
+                <div
+                  class="collapse navbar-collapse sub-menu-bar"
+                  id="navbarSupportedContent"
+                >
+                  <ul id="nav" class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                      <a href="{{route('login')}}">Login</a>
+                    </li>
+                  </ul>
                 </div>
+                <!-- navbar collapse -->
+              </nav>
+              <!-- navbar -->
             </div>
-
           </div>
+          <!-- row -->
         </div>
+        <!-- container -->
       </div>
-    </div>
-  </div>
+      <!-- navbar area -->
+    </header>
+    <!-- ======== header end ======== -->
 
-  <div class="hero-background">
-    <div class="bg-shapes">
-      <div class="shape shape-1"></div>
-      <div class="shape shape-2"></div>
-      <div class="shape shape-3"></div>
-    </div>
-  </div>
-
-</section>
-
-<section id="course-categories" class="course-categories section">
-  <div class="container section-title" data-aos="fade-up">
-    <h2>Who We Are</h2>
-    <p>Looking to grow your international student base in Indonesia?</p>
-  </div>
-  <div class="container" data-aos="fade-up" data-aos-delay="100">
-    <div class="row g-4 justify-content-center">
-        {!! nl2br(e($about->about)) !!}
-    </div>
-  </div>
-</section>
-
-<section id="course-categories" class="course-categories section">
-  <div class="container section-title" data-aos="fade-up">
-    <h2>Our Vision & Mission </h2>
-    <p>What drives us to do this work?</p>
-  </div>
-  <div class="container" data-aos="fade-up" data-aos-delay="100">
-    <div class="row g-4 justify-content-center">
-      <!-- <div class="row mt-5 pt-4"> -->
-      <div class="col-lg-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
-        <div class="mission-card">
-          <h3 class="text-center">Vision</h3>
-          {!! nl2br(e($about->vision)) !!}
-        </div>
-      </div>
-      <div class="col-lg-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
-        <div class="mission-card">
-          <h3 class="text-center">Mission</h3>
-          {!! nl2br(e($about->mission)) !!}
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<section id="course-categories" class="course-categories section">
-  <div class="container section-title" data-aos="fade-up">
-    <h2>Our Values </h2>
-    <p>What matters to us, and to you?</p>
-  </div>
-  <div class="container" data-aos="fade-up" data-aos-delay="100">
-    <div class="row g-4 justify-content-center">
-      <div class="col-md-8 row">
-        @foreach($about->values as $vl)
-          <div class="col-md-4 text-center">
-              <img src="{{ asset('storage/values/'.$vl['img']) }}" style="width: 60%;height:150px">
-              <h5 class="mt-3">{{$vl['name']}}</h5>
-          </div>
-          @endforeach
-      </div>
-    </div>
-    <!-- </div> -->
-  </div>
-</section>
-
-<section id="course-categories" class="course-categories section light-background mt-3">
-  <div class="container section-title" data-aos="fade-up">
-    <h2>Our Services</h2>
-  </div>
-  <div class="container" data-aos="fade-up" data-aos-delay="100">
-    <div class="row g-4 justify-content-center">
-      <div class="col-md-6 cta">
-        <h4 class="text-center mb-3">Student Segments We Serve</h4>
-        <div class="features-list">
-            <div class="feature-item aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
-              <i class="bi bi-check-circle-fill"></i>
-              <span>Secondary School</span>
-            </div>
-            <div class="feature-item aos-init aos-animate" data-aos="fade-up" data-aos-delay="350">
-              <i class="bi bi-check-circle-fill"></i>
-              <span>Foundation & Diploma Pathway Programs</span>
-            </div>
-            <div class="feature-item aos-init aos-animate" data-aos="fade-up" data-aos-delay="400">
-              <i class="bi bi-check-circle-fill"></i>
-              <span>Vocational & Skills-Based Programs</span>
-            </div>
-            <div class="feature-item aos-init aos-animate" data-aos="fade-up" data-aos-delay="450">
-              <i class="bi bi-check-circle-fill"></i>
-              <span>Undergraduate, Postgraduate, & Doctoral/PhD Programs</span>
-            </div>
-            <div class="feature-item aos-init aos-animate" data-aos="fade-up" data-aos-delay="450">
-              <i class="bi bi-check-circle-fill"></i>
-              <span>Short-Term & Long-Term Language Programs</span>
-            </div>
-            <div class="feature-item aos-init aos-animate" data-aos="fade-up" data-aos-delay="450">
-              <i class="bi bi-check-circle-fill"></i>
-              <span>Student Exchange Opportunities</span>
-            </div>
-          </div>
-      </div>
-      <div class="col-md-6 cta">
-        <h4 class="text-center mb-3">End-to-End Student </h4>
-        <div class="features-list">
-            <div class="feature-item aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
-              <i class="bi bi-check-circle-fill"></i>
-              <span>Personalized Academic Counseling</span>
-            </div>
-            <div class="feature-item aos-init aos-animate" data-aos="fade-up" data-aos-delay="350">
-              <i class="bi bi-check-circle-fill"></i>
-              <span>Program & University Selection</span>
-            </div>
-            <div class="feature-item aos-init aos-animate" data-aos="fade-up" data-aos-delay="400">
-              <i class="bi bi-check-circle-fill"></i>
-              <span>Application & Documentation Support</span>
-            </div>
-            <div class="feature-item aos-init aos-animate" data-aos="fade-up" data-aos-delay="450">
-              <i class="bi bi-check-circle-fill"></i>
-              <span>Visa Guidance & Processing</span>
-            </div>
-            <div class="feature-item aos-init aos-animate" data-aos="fade-up" data-aos-delay="450">
-              <i class="bi bi-check-circle-fill"></i>
-              <span>Pre-Departure Briefings</span>
-            </div>
-            <div class="feature-item aos-init aos-animate" data-aos="fade-up" data-aos-delay="450">
-              <i class="bi bi-check-circle-fill"></i>
-              <span>Accommodation & Arrival Support</span>
-            </div>
-            <div class="feature-item aos-init aos-animate" data-aos="fade-up" data-aos-delay="450">
-              <i class="bi bi-check-circle-fill"></i>
-              <span>Institutional Representation & Promotion</span>
-            </div>
-          </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="course-categories" class="course-categories section">
-  <div class="container section-title" data-aos="fade-up">
-    <h2>WORLDWIDE LINKS OF NEXUS EDUCATION</h2>
-    <p>Nexus Education assists the recruitment of students for various types of institutions in the following countries:</p>
-  </div>
-
-  <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-    <div class="row g-4 justify-content-center">
-      @foreach($countries as $country)
-      <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6" data-aos="zoom-in" data-aos-delay="100">
-        <a href="{{route('fe.country.detail',['name'=>Illuminate\Support\Str::slug($country->name)]) }}" class="category-card category-tech">
-          <div class="category-icon" style="
-                background: url('{{asset('storage/'.$country->flag)}}');
-                background-repeat: no-repeat;
-                background-position: center;
-                background-size: contain;">
-          </div>
-          <h5>{{ $country->name }}</h5>
-        </a>
-      </div>
-      @endforeach
-    </div>
-  </div>
-</section>
-
-<!-- <section id="featured-instructors" class="featured-instructors section">
-
-  <div class="container section-title" data-aos="fade-up">
-    <h2>Partnership University</h2>
-  </div>
-
-  <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-    <div class="row gy-4">
-
-      <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-        <div class="instructor-card">
-          <div class="instructor-image">
-            <img src="assets/img/education/teacher-2.webp" class="img-fluid" alt="">
-          </div>
-          <div class="instructor-info">
-            <h5>University A</h5>
-            <p class="description">Nulla facilisi morbi tempus iaculis urna id volutpat lacus laoreet non curabitur gravida.</p>
-            <div class="stats-grid">
-              <div class="stat">
-                <span class="number">2.1k</span>
-                <span class="label">Students</span>
-              </div>
-              <div class="stat">
-                <span class="number">8</span>
-                <span class="label">Majors</span>
-              </div>
-            </div>
-            <div class="action-buttons">
-              <a href="#" class="btn-view">View Detail</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="250">
-        <div class="instructor-card">
-          <div class="instructor-image">
-            <img src="assets/img/education/teacher-7.webp" class="img-fluid" alt="">
-          </div>
-          <div class="instructor-info">
-            <h5>University B</h5>
-            <p class="description">Suspendisse potenti nullam ac tortor vitae purus faucibus ornare suspendisse sed nisi.</p>
-            <div class="stats-grid">
-              <div class="stat">
-                <span class="number">3.5k</span>
-                <span class="label">Students</span>
-              </div>
-              <div class="stat">
-                <span class="number">4</span>
-                <span class="label">Majors</span>
-              </div>
-            </div>
-            <div class="action-buttons">
-              <a href="#" class="btn-view">View Detail</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-        <div class="instructor-card">
-          <div class="instructor-image">
-            <img src="assets/img/education/teacher-4.webp" class="img-fluid" alt="">
-          </div>
-          <div class="instructor-info">
-            <h5>University C</h5>
-            <p class="description">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis.</p>
-            <div class="stats-grid">
-              <div class="stat">
-                <span class="number">1.8k</span>
-                <span class="label">Students</span>
-              </div>
-              <div class="stat">
-                <span class="number">6</span>
-                <span class="label">Majors</span>
-              </div>
-            </div>
-            <div class="action-buttons">
-              <a href="#" class="btn-view">View Detail</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="350">
-        <div class="instructor-card">
-          <div class="instructor-image">
-            <img src="assets/img/education/teacher-9.webp" class="img-fluid" alt="">
-          </div>
-          <div class="instructor-info">
-            <h5>University D</h5>
-            <p class="description">Vivamus magna justo lacinia eget consectetur sed convallis at tellus curabitur non nulla.</p>
-            <div class="stats-grid">
-              <div class="stat">
-                <span class="number">2.9k</span>
-                <span class="label">Students</span>
-              </div>
-              <div class="stat">
-                <span class="number">7</span>
-                <span class="label">Majors</span>
-              </div>
-            </div>
-            <div class="action-buttons">
-              <a href="#" class="btn-view">View Detail</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-</section> -->
-@if(count($event) > 0)
-<section id="featured-courses" class="featured-courses section">
-  <div class="container section-title" data-aos="fade-up">
-    <h2>Event</h2>
-  </div>
-  <div class="container" data-aos="fade-up" data-aos-delay="100">
-    <div class="row gy-4">
-      @foreach($event as $dt)
-        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-          <div class="course-card">
-            <div class="course-image">
-              <img src="{{ asset('storage/'.$dt->thumbnail) }}" alt="Course" class="img-fluid">
-              <div class="price-badge">{{$dt->status}}</div>
-            </div>
-            <div class="course-content">
-              <h3><a href="{{ route('fe.event.detail',['slug'=>$dt->slug]) }}">{{$dt->title}}</a></h3>
-              <p>{{ \Illuminate\Support\Str::limit(strip_tags($dt->description), 255, '...') }}</p>
-              <div class="instructor">
-                <img src="assets/img/person/png-clipart-user-computer-icons-person-icon-cdr-logo.png" alt="Instructor" class="instructor-img">
-                <div class="instructor-info">
-                  <h6>{{ $dt->organizer->name}}</h6>
-                </div>
-              </div>
-              <!-- <div class="course-stats">
-                <div class="rating">
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-half"></i>
-                  <span>(4.5)</span>
-                </div>
-                <div class="students">
-                  <i class="bi bi-people-fill"></i>
-                  <span>342 students</span>
-                </div>
-              </div>
-              <a href="#" class="btn-course">Regist Now</a>
-            </div> -->
-          </div>
-        </div>
-      </div>
-      @endforeach      
-
-    <div class="more-courses text-center" data-aos="fade-up" data-aos-delay="500">
-      <a href="{{ route('fe.event') }}" class="btn-more">View All Event</a>
-    </div>
-  </div>
-</section>
-@endif
-  
-@if(count($news) > 0)
-<section id="recent-blog-posts" class="recent-blog-posts section">
-  <div class="container section-title" data-aos="fade-up">
-    <h2>Recent News Posts</h2>
-  </div>
-
-  <div class="container" data-aos="fade-up" data-aos-delay="100">
-    <div class="row gy-4">
-      @foreach($news as $news) 
-      <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
-          <div class="card">
-            <div class="card-top d-flex align-items-center">
-              <span class="author-name">{{$news->published_at}}</span>
-              <span class="ms-auto likes"><i class="bi bi-eye"></i> 65</span>
-            </div>
-            <div class="card-img-wrapper">
-              <img src="{{ asset('storage/'.$news->thumbnail) }}" alt="Post Image">
-            </div>
-            <div class="card-body">
-              <h5 class="card-title"><a href="#">{{ $news->title }}</a></h5>
-              <p class="card-text">
-                {{ \Illuminate\Support\Str::limit(strip_tags($news->content), 100, '...') }}
+    <!-- ======== hero-section start ======== -->
+    <section id="home" class="hero-section">
+      <div class="container">
+        <div class="row align-items-center position-relative">
+          <div class="col-lg-6">
+            <div class="hero-content">
+              <h1 class="wow fadeInUp" data-wow-delay=".4s">
+                Your one-stop platform for international student admissions              
+              </h1>
+              <p class="wow fadeInUp" data-wow-delay=".6s">
+                international student recruitment platform simplifies the process of searching for courses, submitting applications, and tracking applications in real time.              
               </p>
+              <a href="#features" class="scroll-bottom">
+                <i class="lni lni-arrow-down"></i
+              ></a>
             </div>
           </div>
+          <div class="col-lg-6">
+            <div class="hero-img wow fadeInUp" data-wow-delay=".5s">
+              <img src="https://www.si-applications.com/assets/HomePage//homeImg.svg" alt="" />
+            </div>
+          </div>
+        </div>
       </div>
-      @endforeach
-      <div class="more-courses text-center" data-aos="fade-up" data-aos-delay="500">
-        <a href="{{ route('fe.news') }}" class="btn-more">View All News</a>
-      </div>
-    </div>
-  </div>
-</section>
-@endif
-@if(count($testimonial) > 0)
-<section id="testimonials" class="testimonials section">
-  <div class="container section-title" data-aos="fade-up">
-    <h2>Testimonials</h2>
-  </div>
+    </section>
+    <!-- ======== hero-section end ======== -->
 
-  <div class="container" data-aos="fade-up" data-aos-delay="100">
-    <div class="row">
-      <div class="col-12">
-        <div class="testimonials-container">
-          <div class="swiper testimonials-slider init-swiper" data-aos="fade-up" data-aos-delay="400">
-            <script type="application/json" class="swiper-config">
-              {
-                "loop": true,
-                "speed": 600,
-                "autoplay": {
-                  "delay": 5000
-                },
-                "slidesPerView": 1,
-                "spaceBetween": 30,
-                "pagination": {
-                  "el": ".swiper-pagination",
-                  "type": "bullets",
-                  "clickable": true
-                },
-                "breakpoints": {
-                  "768": {
-                    "slidesPerView": 2
-                  },
-                  "992": {
-                    "slidesPerView": 3
-                  }
-                }
-              }
-            </script>
-            <div class="swiper-wrapper">
-              @foreach($testimonial as $tt)
-              <div class="swiper-slide">
-                <div class="testimonial-item">
-                  <p>
-                    {{$tt->description}}
-                  </p>
-                  <div class="testimonial-profile">
-                    <div>
-                      <h3>{{$tt->name}}</h3>
-                    </div>
+    @foreach($dataCRM as $crm)
+      <section id="about" class="about-section pt-150">
+        <div class="container">
+          <div class="row align-items-center">
+            @if($loop->iteration % 2 == 0)
+              <div class="col-xl-6 col-lg-6">
+                <div class="about-img">
+                  <img src="{{$crm['img']}}" alt="" class="w-100" />
+                  <img
+                    src="assets/img/about/about-left-shape.svg"
+                    alt=""
+                    class="shape shape-1"
+                  />
+                  <img
+                    src="assets/img/about/left-dots.svg"
+                    alt=""
+                    class="shape shape-2"
+                  />
+                </div>
+              </div>
+              <div class="col-xl-6 col-lg-6">
+                <div class="about-content">
+                  <div class="section-title mb-30">
+                    <h2 class="mb-25 wow fadeInUp" data-wow-delay=".2s">
+                      {{$crm['title']}}
+                    </h2>
+                    <p class="wow fadeInUp" data-wow-delay=".4s">
+                      {{$crm['desc']}}
+                    </p>
                   </div>
                 </div>
               </div>
-              @endforeach
-            </div>
-            <div class="swiper-pagination"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-@endif
-<section id="cta" class="cta section light-background">
+            @else
+<div class="col-xl-6 col-lg-6">
+            <div class="about-content">
+              <div class="section-title mb-30">
+                <h2 class="mb-25 wow fadeInUp" data-wow-delay=".2s">
+                      {{$crm['title']}}
+                </h2>
+                <p class="wow fadeInUp" data-wow-delay=".4s">
+                                      {{$crm['desc']}}
 
-  <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-    <div class="row align-items-center">
-
-      <div class="col-lg-6" data-aos="fade-right" data-aos-delay="200">
-        <div class="cta-content">
-          <h2>Why Partner with us?</h2>
-          <p>
-            At <span style='color:#023382;font-weight:bold'>Nexus</span> <span style='color:#fdb515;font-weight:bold'>Education</span>, we understand that choosing the right education consultancy is not about numbers, it’s about trust, shared values, and a commitment to quality.
-            <br><br>Here's why institutions around the world choose to collaborate with us:
-          </p>
-
-          <div class="features-list">
-            <div class="feature-item" data-aos="fade-up" data-aos-delay="300">
-              <i class="bi bi-check-circle-fill"></i>
-              <span>Strategic Market Access</span>
-            </div>
-            <div class="feature-item" data-aos="fade-up" data-aos-delay="350">
-              <i class="bi bi-check-circle-fill"></i>
-              <span>Proven Success</span>
-            </div>
-            <div class="feature-item" data-aos="fade-up" data-aos-delay="400">
-              <i class="bi bi-check-circle-fill"></i>
-              <span>Expert Counseling Team</span>
-            </div>
-            <div class="feature-item" data-aos="fade-up" data-aos-delay="450">
-              <i class="bi bi-check-circle-fill"></i>
-              <span>Robust Marketing Capability</span>
-            </div>
-            <div class="feature-item" data-aos="fade-up" data-aos-delay="450">
-              <i class="bi bi-check-circle-fill"></i>
-              <span>Sustainable Partnerships</span>
-            </div>
-          </div>
-
-          <!-- <div class="cta-actions" data-aos="fade-up" data-aos-delay="500">
-            <a href="#" class="btn btn-primary">Browse Courses</a>
-            <a href="#" class="btn btn-outline">Regist Now</a>
-          </div> -->
-
-          <!-- <div class="stats-row" data-aos="fade-up" data-aos-delay="400">
-            <div class="stat-item">
-              <h3><span data-purecounter-start="0" data-purecounter-end="15000" data-purecounter-duration="2" class="purecounter"></span>+</h3>
-              <p>Students Enrolled</p>
-            </div>
-            <div class="stat-item">
-              <h3><span data-purecounter-start="0" data-purecounter-end="150" data-purecounter-duration="2" class="purecounter"></span>+</h3>
-              <p>Courses Available</p>
-            </div>
-            <div class="stat-item">
-              <h3><span data-purecounter-start="0" data-purecounter-end="98" data-purecounter-duration="2" class="purecounter"></span>%</h3>
-              <p>Success Rate</p>
-            </div>
-          </div> -->
-        </div>
-      </div>
-
-      <div class="col-lg-6" data-aos="fade-left" data-aos-delay="300">
-        <div class="cta-image">
-          <img src="https://jacksonstone.co.nz/wp-content/uploads/2024/06/hero_why-partner-with-us.jpg.webp" alt="Online Learning Platform" class="img-fluid">
-          <!-- <div class="floating-element student-card" data-aos="zoom-in" data-aos-delay="600">
-            <div class="card-content">
-              <i class="bi bi-person-check-fill"></i>
-              <div class="text">
-                <span class="number">2,450</span>
-                <span class="label">New Students This Month</span>
+                </p>
               </div>
             </div>
           </div>
-          <div class="floating-element course-card" data-aos="zoom-in" data-aos-delay="700">
-            <div class="card-content">
-              <i class="bi bi-play-circle-fill"></i>
-              <div class="text">
-                <span class="number">50+</span>
-                <span class="label">Hours of Content</span>
-              </div>
+          <div class="col-xl-6 col-lg-6 order-first order-lg-last">
+            <div class="about-img-2">
+                  <img src="{{$crm['img']}}" alt="" class="w-100" />
+              <img
+                src="assets/img/about/about-right-shape.svg"
+                alt=""
+                class="shape shape-1"
+              />
+              <img
+                src="assets/img/about/right-dots.svg"
+                alt=""
+                class="shape shape-2"
+              />
             </div>
-          </div> -->
+          </div>
+            @endif
+          </div>
+        </div>
+      </section>
+    @endforeach
+    <!-- ======== about-section start ======== -->
+    <section id="why" class="feature-extended-section pt-100">
+      <div class="feature-extended-wrapper">
+        <div class="container">
+          <ul class="nav nav-tabs justify-content-center flex-wrap gap-3 border-0" id="studentTab" role="tablist">
+            @foreach($country as $dt)
+                <li class="nav-item" role="presentation" style="margin-bottom: 12px;">
+                    <button 
+                        class="nav-link bg-transparent p-0 d-flex flex-column align-items-center"
+                        id="tab-{{ $dt->id }}"
+                        data-bs-toggle="tab" 
+                        data-bs-target="#country{{ $dt->id }}" 
+                        type="button" 
+                        role="tab" 
+                        aria-controls="country{{ $dt->id }}" 
+                        aria-selected="false"
+                        style="transition: all 0.2s ease;">
+                        
+                        <div class="p-2 rounded-3" 
+                            style="width: 120px;">
+                            <img 
+                                src="https://nexuseducation.id/storage/{{ $dt->flag }}" 
+                                alt="{{ $dt->name }}" 
+                                class="img-fluid rounded" 
+                                style="height: 64px; object-fit: cover; border-radius: 8px;">
+                            <div class="fw-semibold mt-2 text-dark" style="font-size: 0.95rem;">{{ $dt->name }}</div>
+                        </div>
+                    </button>
+                </li>
+            @endforeach
+        </ul>
+        <div class="tab-content mt-4" id="studentTabContent">
+            @foreach($country as $dt)
+                <div class="tab-pane fade" id="country{{ $dt->id }}" role="tabpanel">
+                    <div class="row">
+                        @foreach($dt->partnerSchools as $sc)
+                        <div class="col-lg-4 col-md-6">
+                            <div class="single-feature-extended text-center">
+                                <div class="icon">
+                                    <img src="https://nexuseducation.id/storage/{{ $sc->logo }}" alt="" height="80">
+                                </div>
+                                <div class="content">
+                                    <h5>{{ $sc->name }}</h5>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endforeach
+        </div>
         </div>
       </div>
+    </section>
 
-    </div>
+    <!-- ======== scroll-top ======== -->
+    <a href="#" class="scroll-top btn-hover">
+      <i class="lni lni-chevron-up"></i>
+    </a>
 
-  </div>
-
-</section>
-@endsection
+    <!-- ======== JS here ======== -->
+    <script src="{{ asset('assets/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{ asset('assets/js/wow.min.js')}}"></script>
+    <script src="{{ asset('assets/js/main.js')}}"></script>
+  </body>
+</html>

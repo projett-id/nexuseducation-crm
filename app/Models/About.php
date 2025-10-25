@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class About extends Model
 {
     use HasFactory;
+    protected $connection = 'db_compro';
     protected $primaryKey = null;
     public $incrementing = false;
     protected $keyType = 'string'; 

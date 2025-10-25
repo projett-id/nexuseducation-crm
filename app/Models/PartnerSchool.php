@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class PartnerSchool extends Model
 {
     use HasFactory;
+    protected $connection = 'db_compro';
     protected $fillable = ['country_id', 'logo', 'name','location', 'website', 'maps','banner_header','slug'];
     public function country()
     {

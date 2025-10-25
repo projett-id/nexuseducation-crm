@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Country extends Model
 {
     use HasFactory;
+    protected $connection = 'db_compro';
     protected $fillable = ['name', 'flag', 'status'];
     // One country has many visas
     public function visas()

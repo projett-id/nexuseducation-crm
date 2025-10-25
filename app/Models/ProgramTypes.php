@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ProgramTypes extends Model
 {
     use HasFactory;
+    protected $connection = 'db_compro';
     protected $fillable = ['title', 'country_id', 'content'];
     public function country()
     {

@@ -8,6 +8,18 @@ use Illuminate\Support\Facades\Route;
 
 
 use App\Http\Controllers\Backoffice\RoleController;
+
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\StudentEmergencyContactController;
+use App\Http\Controllers\StudentAddressController;
+use App\Http\Controllers\StudentAcademicHistoryController;
+use App\Http\Controllers\StudentWorkDetailController;
+use App\Http\Controllers\StudentDocumentController;
+use App\Http\Controllers\StudentAcademicInterestController;
+use App\Http\Controllers\StudentExamScoreController;
+use App\Http\Controllers\StudentRefereeController;
+use App\Http\Controllers\MasterDocumentController;
+
 use App\Http\Controllers\Backoffice\PermissionController;
 use App\Http\Controllers\Backoffice\UserController;
 use App\Http\Controllers\Backoffice\NewsController;
@@ -32,12 +44,7 @@ use App\Http\Controllers\Backoffice\ProgramTypeController;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/about', [HomeController::class, 'about'])->name('about');
-Route::get('/event', [EventController::class, 'indexFE'])->name('fe.event');
-Route::get('/event/{slug}', [EventController::class, 'detailFE'])->name('fe.event.detail');
-Route::get('/news', [NewsController::class, 'indexFE'])->name('fe.news');
-Route::get('/news/{slug}', [NewsController::class, 'detailFE'])->name('fe.news.detail');
-    
+
 Route::get('/country/{name}', [CountryController::class, 'detailFE'])
     ->name('fe.country.detail')
     ->where('name', '[A-Za-z0-9\-]+');
@@ -56,33 +63,23 @@ Route::get('/dashboard', function () {
 Route::prefix('backoffice')
     ->middleware(['auth', 'role:superadmin|admin'])
     ->group(function () {
-        Route::match(['get','post'],'about',[HomeController::class,'aboutForm'])->name('about.form');
         Route::resource('roles', RoleController::class);
-        Route::resource('visa', VisaController::class);
-        Route::resource('program-types', ProgramTypeController::class);
-        // Route::resource('partner-school', PartnerSchoolController::class);
-        Route::prefix('partner-school')->name('partner-school.')->group(function () {
-            Route::get('{partner_school}/detail/{detail?}', [PartnerSchoolController::class, 'detail'])
-                ->name('detail');
-            Route::post('{partner_school}/detail/{detail?}', [PartnerSchoolController::class, 'storeDetail'])
-                ->name('detail.store');
-            Route::delete('{partner_school}/detail/{detail}', [PartnerSchoolController::class, 'deleteDetail'])
-                ->name('detail.destroy');
-        });
-
-        Route::resource('partner-school', PartnerSchoolController::class);
-
-
+        Route::resource('master-document', MasterDocumentController::class);
         Route::resource('country', CountryController::class);
         Route::resource('permissions', PermissionController::class);
         Route::resource('users', UserController::class);
-        Route::resource('news', NewsController::class);
-        Route::resource('event', EventController::class);
-        Route::resource('categories', CategoryController::class);
-        Route::resource('tags', TagController::class);
-        Route::resource('testimonials', TestimonialsController::class);
-        Route::get('data-journey', [HomeController::class,'listJourney'])->name('data-journey');
-        Route::get('data-partner', [HomeController::class,'listPartner'])->name('data-partner');
+});
+Route::resource('student', StudentController::class);
+Route::prefix('student')->as('student.')->middleware(['auth', 'role:superadmin|admin|student'])->group(function () {
+    Route::resource('emergency-contact', StudentEmergencyContactController::class);
+    Route::resource('address', StudentAddressController::class);
+    Route::post('destination-country', [StudentAcademicHistoryController::class, 'storeDestinationCountry'])->name('destination-country.store');
+    Route::resource('academic-history', StudentAcademicHistoryController::class)->except(['index', 'show', 'create', 'edit']);
+    Route::resource('work-detail', StudentWorkDetailController::class)->except(['index', 'show', 'create', 'edit']);
+    Route::resource('document', StudentDocumentController::class)->except(['index', 'show', 'create', 'edit']);
+    Route::resource('academic-interest', StudentAcademicInterestController::class)->except(['index', 'show', 'create', 'edit']);
+    Route::resource('exam-score', StudentExamScoreController::class)->except(['index', 'show', 'create', 'edit']);
+    Route::resource('referee', StudentRefereeController::class)->except(['index', 'show', 'create', 'edit']);
 });
 
 Route::middleware('auth')->group(function () {

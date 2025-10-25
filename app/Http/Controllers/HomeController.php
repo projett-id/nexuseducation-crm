@@ -15,11 +15,36 @@ class HomeController extends Controller
     public function index()
     {
         $about = About::first();
-        $countries = Country::where('status', 1)->get();
-        $event = Event::all();
-        $news = News::all();
-        $testimonial = Testimonial::all();
-        return view('home',compact('countries','event','news','about','testimonial'));
+        $country = Country::where('status',1)->get();
+        $dataCRM = [
+            [
+                'img'=>'https://www.si-applications.com/assets/HomePage/map.svg',
+                'title'=>'1,000 education institutions in five destinations',
+                'desc'=>'Search for and apply to 120,000 courses at over 1,000 universities and colleges in the United Kingdom, Canada, the United States, Ireland, and the UAE.'
+            ],
+            [
+                'img'=>'https://www.si-applications.com/assets/HomePage/mapCity.svg',
+                'title'=>'A single application for any course in any country',
+                'desc'=>'Our platform provides a unified application form that can be used to apply to multiple universities and programs, reducing redundancy and saving your time.'
+            ],
+            [
+                'img'=>'https://www.si-applications.com/assets/HomePage/laptop.svg',
+                'title'=>'Course matching personalised for your students',
+                'desc'=>'Our search technology matches students with programs and universities that best fit their academic background, interests, and career goals. Search for a course, confirm requirements, and apply with one click.'
+            ],
+            [
+                'img'=>'https://www.si-applications.com/assets/HomePage/team.png',
+                'title'=>'Expert support from your dedicated account manager',
+                'desc'=>'StudyIn’s consultants are experts in their target markets. Access to a dedicated consultant and training materials ensure top quality applications for your students. Online webinars and training materials keep you updated on the most recent trends and developments in your markets.'
+            ],
+            [
+                'img'=>'https://www.si-applications.com/assets/HomePage/team_1.svg',
+                'title'=>'Generous commissions shares!',
+                'desc'=>'Earn competitive commissions on your enrolled students.  StudyIn’s platform allows you to track the application process of your students, and submit your claim for commission with one click.'
+            ],
+        ];
+
+        return view('home',compact('about','country','dataCRM'));
     }   
 
     public function about()

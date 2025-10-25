@@ -1,0 +1,158 @@
+@php
+    $selectedCountries = $student->destinationStudies->pluck('country')->toArray();
+@endphp
+
+<form action="{{ route('student.destination-country.store') }}" method="POST" class="mt-3">
+    @csrf
+    <input type="hidden" name="student_id" value="{{ $student->id }}">
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <strong>Destination Countries</strong>
+        </div>
+        <div class="card-body row">
+            <div class="col-md-12">
+                <div class="mb-3">
+                    <label class="form-label">Countries</label>
+                    <div class="row">
+                        @foreach($country as $ctr)
+                            <div class="col-md-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="countries[]" value="{{ $ctr->name }}"
+                                        id="country_{{ $ctr->id }}"
+                                        {{ in_array($ctr->name, $selectedCountries) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="country_{{ $ctr->id }}">
+                                        {{ $ctr->name }}
+                                    </label>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+                <div class="mb-3 text-end">
+                    <button type="submit" class="btn btn-primary btn-sm">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form action="{{ route('student.academic-history.store') }}" method="POST" class="mt-3">
+    @csrf
+    <input type="hidden" name="student_id" value="{{ $student->id }}">
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <strong>Education</strong>
+        </div>
+        <div class="card-body row">
+            <input type="hidden" name="student_id" value="{{ $student->id }}">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label class="form-label">Country</label>
+                    <input type="text" name="country" class="form-control" required placeholder="Country">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Institution Name</label>
+                    <input type="text" name="institution_name" class="form-control" required placeholder="Institution Name">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Course of Study</label>
+                    <input type="text" name="course_of_study" class="form-control" required placeholder="Course of Study">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Level of Study</label>
+                    <input type="text" name="level_of_study" class="form-control" required placeholder="Level of Study">
+                </div>
+            </div>
+            <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Start Date</label>
+                    <input type="date" name="start_date" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">End Date</label>
+                    <input type="date" name="end_date" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Time</label>
+                    <select name="shift" class="form-control" required>
+                        <option value="Full-time">Full-time</option>
+                        <option value="Part-time">Part-time</option>
+                    </select>                
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Grading Score</label>
+                    <input type="text" name="grading_score" class="form-control" required placeholder="Grading Score">
+                </div>
+                <div class="mb-3 text-end">
+                    <button type="submit" class="btn btn-primary btn-sm">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="card mt-3">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <th>Country</th>
+                    <th>Institution Name</th>
+                    <th>Course of Study</th>
+                    <th>Level of Study</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Time</th>
+                    <th>Grading Score</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </thead>
+                <tbody>
+                    @foreach($student->academicHistories as $edu)
+                        <tr>
+                            <form action="{{ route('student.academic-history.update', $edu->id) }}" method="POST" class="row">
+                                @csrf
+                                @method('PUT')
+                                <td>
+                                    <input type="text" name="country" value="{{ $edu->country }}" class="form-control" required placeholder="Country">
+                                </td>
+                                <td>
+                                    <input type="text" name="institution_name" value="{{ $edu->institution_name }}" class="form-control" required placeholder="Institution Name">
+                                </td>
+                                <td>
+                                    <input type="text" name="course_of_study" value="{{ $edu->course_of_study }}" class="form-control" required placeholder="Course of Study">
+                                </td>
+                                <td>
+                                    <input type="text" name="level_of_study" value="{{ $edu->level_of_study }}" class="form-control" required placeholder="Level of Study">
+                                </td>
+                                <td>
+                                    <input type="date" name="start_date" value="{{ $edu->start_date }}" class="form-control" required>
+                                </td>
+                                <td>
+                                    <input type="date" name="end_date" value="{{ $edu->end_date }}" class="form-control" required>
+                                </td>
+                                <td>
+                                    <select name="shift" class="form-control" required>
+                                        <option value="Full-time" {{ $edu->shift == 'Full-time' ? 'selected' : '' }}>Full-time</option>
+                                        <option value="Part-time" {{ $edu->shift == 'Part-time' ? 'selected' : '' }}>Part-time</option>
+                                    </select>                            </td>
+                                <td>
+                                    <input type="text" name="grading_score" value="{{ $edu->grading_score }}" class="form-control" required placeholder="Grading Score">
+                                </td>
+                                <td>
+                                    <button type="submit" class="btn btn-warning btn-sm">Update</button>
+                                </td>
+                            </form>
+                            <td>
+                                <form action="{{ route('student.academic-history.destroy', $edu->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-danger btn-sm" onclick="return confirm('Delete this contact?')">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

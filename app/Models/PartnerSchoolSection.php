@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class PartnerSchoolSection extends Model
 {
     use HasFactory;
+    protected $connection = 'db_compro';
     protected $table = 'partner_schools_sections';
     protected $fillable = ['partner_schools_id', 'title', 'content'];
     

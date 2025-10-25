@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Nexus Education| Backoffice</title>
+    <title>Nexus Education| Application</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <meta name="color-scheme" content="light dark" />
     <meta name="theme-color" content="#007bff" media="(prefers-color-scheme: light)" />
@@ -44,31 +44,20 @@
     <style>
       body {
           font-family: 'Poppins', sans-serif;
-          font-weight: 400; /* Regular */
+          font-weight: 400;
       }
-
       h1, h2, h3, h4, h5, h6 {
           font-family: 'Montserrat', sans-serif;
-          font-weight: 700; /* Bold */
+          font-weight: 700;
       }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.bootstrap5.css">
     @stack('styles')
   </head>
-  <body class="layout-fixed sidebar-expand-lg sidebar-open bg-body-tertiary">
+  <body class="layout-fixed bg-body-tertiary">
     <div class="app-wrapper">
       @include('admin.layouts.header')
-      <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
-        <div class="sidebar-brand">
-          <a href="#" class="brand-link">
-            <span class="brand-text fw-light">Nexus Education</span>
-          </a>
-        </div>
-        <div class="sidebar-wrapper">
-          @include('admin.layouts.sidebar')
-        </div>
-      </aside>
       <main class="app-main">
         <div class="app-content-header">
           <div class="container-fluid">
@@ -102,28 +91,7 @@
       crossorigin="anonymous"
     ></script>
     <script src="{{ asset('admin-theme/js/adminlte.js')}}"></script>
-    <script>
-      const SELECTOR_SIDEBAR_WRAPPER = '.sidebar-wrapper';
-      const Default = {
-        scrollbarTheme: 'os-theme-light',
-        scrollbarAutoHide: 'leave',
-        scrollbarClickScroll: true,
-      };
-      document.addEventListener('DOMContentLoaded', function () {
-        const sidebarWrapper = document.querySelector(SELECTOR_SIDEBAR_WRAPPER);
-        if (sidebarWrapper && OverlayScrollbarsGlobal?.OverlayScrollbars !== undefined) {
-          OverlayScrollbarsGlobal.OverlayScrollbars(sidebarWrapper, {
-            scrollbars: {
-              theme: Default.scrollbarTheme,
-              autoHide: Default.scrollbarAutoHide,
-              clickScroll: Default.scrollbarClickScroll,
-            },
-          });
-        }
-      });
-    </script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <!-- <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.datatables.net/2.3.4/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.3.4/js/dataTables.bootstrap5.js"></script>
