@@ -36,61 +36,189 @@
     </div>
 </form>
 
-<form action="{{ route('student.academic-history.store') }}" method="POST" class="mt-3">
-    @csrf
-    <input type="hidden" name="student_id" value="{{ $student->id }}">
-    <div class="card mb-4">
-        <div class="card-header bg-primary text-white">
-            <strong>Education</strong>
-        </div>
-        <div class="card-body row">
-            <input type="hidden" name="student_id" value="{{ $student->id }}">
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label class="form-label">Country</label>
-                    <input type="text" name="country" class="form-control" required placeholder="Country">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Institution Name</label>
-                    <input type="text" name="institution_name" class="form-control" required placeholder="Institution Name">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Course of Study</label>
-                    <input type="text" name="course_of_study" class="form-control" required placeholder="Course of Study">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Level of Study</label>
-                    <input type="text" name="level_of_study" class="form-control" required placeholder="Level of Study">
-                </div>
-            </div>
-            <div class="col-md-6">
-                  <div class="mb-3">
-                    <label class="form-label">Start Date</label>
-                    <input type="date" name="start_date" class="form-control" required>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">End Date</label>
-                    <input type="date" name="end_date" class="form-control" required>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Time</label>
-                    <select name="shift" class="form-control" required>
-                        <option value="Full-time">Full-time</option>
-                        <option value="Part-time">Part-time</option>
-                    </select>                
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Grading Score</label>
-                    <input type="text" name="grading_score" class="form-control" required placeholder="Grading Score">
-                </div>
-                <div class="mb-3 text-end">
-                    <button type="submit" class="btn btn-primary btn-sm">Add</button>
-                </div>
-            </div>
-        </div>
+<div class="card mt-5">
+    <div class="card-header bg-primary text-white">
+        <strong>Academic History</strong>
     </div>
-</form>
-<div class="card mt-3">
+    <div class="card-body" id="academicHistorySection">
+        <form action="{{ route('student.academic-history.store') }}" method="POST" class="mt-3">
+            @csrf
+            <input type="hidden" name="student_id" value="{{ $student->id }}">
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <strong>Education</strong>
+                </div>
+                <div class="card-body row">
+                    <input type="hidden" name="student_id" value="{{ $student->id }}">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Country</label>
+                            <input type="text" name="country" class="form-control" required placeholder="Country">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Institution Name</label>
+                            <input type="text" name="institution_name" class="form-control" required placeholder="Institution Name">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Course of Study</label>
+                            <input type="text" name="course_of_study" class="form-control" required placeholder="Course of Study">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Level of Study</label>
+                            <input type="text" name="level_of_study" class="form-control" required placeholder="Level of Study">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Start Date</label>
+                            <input type="date" name="start_date" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">End Date</label>
+                            <input type="date" name="end_date" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Time</label>
+                            <select name="shift" class="form-control" required>
+                                <option value="Full-time">Full-time</option>
+                                <option value="Part-time">Part-time</option>
+                            </select>                
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Grading Score</label>
+                            <input type="text" name="grading_score" class="form-control" required placeholder="Grading Score">
+                        </div>
+                        <div class="mb-3 text-end">
+                            <button type="submit" class="btn btn-primary btn-sm">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        @foreach($student->academicHistories as $edu)
+        <form action="{{ route('student.academic-history.update', $edu->id) }}" method="POST" class="mt-3">
+            @csrf
+            @method('PUT')
+            <input type="hidden" name="student_id" value="{{ $student->id }}">
+            <div class="card mb-4">
+                <div class="card-header bg-success text-white">
+                    <strong>Education</strong>
+                    <form action="{{ route('student.academic-history.destroy', $edu->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm btn-light text-danger border-0" title="Delete">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <div class="card-body row">
+                    <input type="hidden" name="student_id" value="{{ $student->id }}">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Country</label>
+                            <input type="text" name="country" value="{{ $edu->country }}" class="form-control" required placeholder="Country">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Institution Name</label>
+                            <input type="text" name="institution_name" value="{{ $edu->institution_name }}" class="form-control" required placeholder="Institution Name">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Course of Study</label>
+                            <input type="text" name="course_of_study" value="{{ $edu->course_of_study }}" class="form-control" required placeholder="Course of Study">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Level of Study</label>
+                            <input type="text" name="level_of_study" value="{{ $edu->level_of_study }}" class="form-control" required placeholder="Level of Study">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Start Date</label>
+                            <input type="date" name="start_date" class="form-control" required value="{{ $edu->start_date }}">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">End Date</label>
+                            <input type="date" name="end_date" class="form-control" required value="{{ $edu->end_date }}">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Time</label>
+                            <select name="shift" class="form-control" required>
+                                <option value="Full-time" {{ $edu->shift == 'Full-time' ? 'selected' : '' }}>Full-time</option>
+                                <option value="Part-time" {{ $edu->shift == 'Part-time' ? 'selected' : '' }}>Part-time</option>
+                            </select>                
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Grading Score</label>
+                            <input type="text" name="grading_score" class="form-control" required placeholder="Grading Score" value="{{ $edu->grading_score }}">
+                        </div>
+                        <div class="mb-3 text-end">
+                            <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        @endforeach
+    </div>
+</div>
+
+<div class="card mt-5">
+    <div class="card-header bg-primary text-white">
+        <strong>Academic Interest</strong>
+    </div>
+    <div class="card-body" id="academicInterestSection">
+        <form action="{{ route('student.academic-interest.store') }}" method="POST" class="mt-3">
+            @csrf
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <strong>Education</strong>
+                </div>
+                <div class="card-body row">
+                    <input type="hidden" name="student_id" value="{{ $student->id }}">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Level of study</label>
+                            <select class="form-control" name="level_study" required>
+                                <option value="">Choose one</option>
+                                @foreach($listLevelOfStudy as $level)
+                                    <option value="{{ $level }}">{{ $level }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Disciplines</label>
+                            <select class="form-control" name="discipline" required>
+                                <option value="">Choose one</option>
+                                @foreach($listDisciplines as $disciplines)
+                                    <option value="{{ $disciplines }}">{{ $disciplines }}</option>
+                                @endforeach
+                            </select>                        
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Programme</label>
+                            <input type="text" name="program_type" class="form-control" required placeholder="Programme">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Start Date</label>
+                            <input type="date" name="start_date" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Location</label>
+                            <input type="text" name="location" class="form-control" required placeholder="Location">
+                        </div>
+                        <div class="mb-3 text-end">
+                            <button type="submit" class="btn btn-primary btn-sm">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- <div class="card mt-3">
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-striped">
@@ -155,4 +283,4 @@
             </table>
         </div>
     </div>
-</div>
+</div> -->

@@ -63,7 +63,10 @@ class StudentController extends Controller
         $country = Country::where('status',1)->get();
         $student = Student::findOrFail($id);
         $documentMasters = MasterDocument::all();
-        return view('student.edit', compact('student', 'documentMasters','country'));
+        $countries = config('const.countries');
+        $listLevelOfStudy = config('const.levels_of_study');
+        $listDisciplines = config('const.disciplines');
+        return view('student.edit', compact('student', 'documentMasters','country','countries','listLevelOfStudy','listDisciplines'));
     }
 
     // Update student

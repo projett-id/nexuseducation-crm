@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AcademicInterest;
+use App\Models\StudentAcademicInterest;
 use Illuminate\Http\Request;
 
 class StudentAcademicInterestController extends Controller
