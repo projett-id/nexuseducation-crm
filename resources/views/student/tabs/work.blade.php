@@ -44,10 +44,8 @@
 </form>
 
 @foreach($student->workDetails as $work)
-<form action="{{ route('student.work-detail.update', $work->id) }}" method="POST"  class="mt-3">
-    @csrf
     <div class="card mb-4">
-        <div class="card-header bg-primary text-white">
+        <div class="card-header bg-primary text-white d-flex">
             <strong>Work Experience</strong>
             <form action="{{ route('student.work-detail.destroy', $work->id) }}" method="POST">
                 @csrf
@@ -57,47 +55,50 @@
                 </button>
             </form>
         </div>
-        <div class="card-body row">
-            <input type="hidden" name="student_id" value="{{ $student->id }}">
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label class="form-label">Job Title</label>
-                    <input type="text" name="job_title" class="form-control" required placeholder="Job Title" value="{{ $work->job_title }}">
+        <div class="card-body">
+            <form action="{{ route('student.work-detail.update', $work->id) }}" method="POST" class="row">
+                @csrf
+                @method('PUT')
+                <input type="hidden" name="student_id" value="{{ $student->id }}">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label">Job Title</label>
+                        <input type="text" name="job_title" class="form-control" required placeholder="Job Title" value="{{ $work->job_title }}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Company</label>
+                        <input type="text" name="company" class="form-control" required placeholder="Company" value="{{ $work->company }}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Address</label>
+                        <input type="text" name="address" class="form-control" required placeholder="Address" value="{{ $work->address }}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Phone Number</label>
+                        <input type="text" name="phone_number" class="form-control" placeholder="Phone Number" value="{{ $work->phone_number }}">
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Company</label>
-                    <input type="text" name="company" class="form-control" required placeholder="Company" value="{{ $work->company }}">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label">Start Date</label>
+                        <input type="date" name="start_date" class="form-control" value="{{ date('Y-m-d') }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">End Date</label>
+                        <input type="date" name="end_date" class="form-control" value="{{ $work->end_date }}">
+                    </div>
+                    @if($work->currently_working)
+                        <input type="checkbox" name="currently_working" value="1" checked> Currently Working Here
+                    @else
+                        <input type="checkbox" name="currently_working" value="1"> Currently Working Here
+                    @endif
+                    <div class="mb-3 text-end">
+                        <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Address</label>
-                    <input type="text" name="address" class="form-control" required placeholder="Address" value="{{ $work->address }}">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Phone Number</label>
-                    <input type="text" name="phone_number" class="form-control" placeholder="Phone Number" value="{{ $work->phone_number }}">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label class="form-label">Start Date</label>
-                    <input type="date" name="start_date" class="form-control" value="{{ date('Y-m-d') }}" required>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">End Date</label>
-                    <input type="date" name="end_date" class="form-control" value="{{ $work->end_date }}">
-                </div>
-                @if($work->currently_working)
-                    <input type="checkbox" name="currently_working" value="1" checked> Currently Working Here
-                @else
-                    <input type="checkbox" name="currently_working" value="1"> Currently Working Here
-                @endif
-                <div class="mb-3 text-end">
-                    <button type="submit" class="btn btn-primary btn-sm">Update</button>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
-</form>
 @endforeach
 <!-- <div class="card mt-3">
     <div class="card-body">

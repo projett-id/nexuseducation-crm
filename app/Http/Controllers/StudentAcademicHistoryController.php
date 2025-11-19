@@ -53,12 +53,16 @@ class StudentAcademicHistoryController extends Controller
     {
         $validated = $request->validate([
             'student_id' => 'required|exists:students,id',
-            'countries' => 'required|array',
-            'countries.*' => 'required|string',
+            'countries' => 'required',
         ]);
-
-        foreach ($validated['countries'] as $country) {
-            StudentDestinationCountry::create([
+        $countries = json_decode($request->countries, true);
+        $countryNames = collect($countries)->pluck('value')->toArray();
+        StudentDestinationCountry::where('student_id', $request->student_id)->whereNotIn('country',$countryNames)->delete();
+        foreach ($countryNames as $country) {
+            StudentDestinationCountry::updateOrCreate([
+                'student_id' => $validated['student_id'],
+                'country' => $country,
+            ],[
                 'student_id' => $validated['student_id'],
                 'country' => $country,
             ]);

@@ -12,21 +12,8 @@
         <div class="card-body row">
             <div class="col-md-12">
                 <div class="mb-3">
-                    <label class="form-label">Countries</label>
-                    <div class="row">
-                        @foreach($country as $ctr)
-                            <div class="col-md-3">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="countries[]" value="{{ $ctr->name }}"
-                                        id="country_{{ $ctr->id }}"
-                                        {{ in_array($ctr->name, $selectedCountries) ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="country_{{ $ctr->id }}">
-                                        {{ $ctr->name }}
-                                    </label>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
+                    <label class="form-label">Country</label>
+                    <input id="countryTags" name="countries" class="form-control" placeholder="Type or select country" value="{{ implode(',', $selectedCountries) }}">
                 </div>
                 <div class="mb-3 text-end">
                     <button type="submit" class="btn btn-primary btn-sm">Save</button>
@@ -64,9 +51,15 @@
                             <input type="text" name="course_of_study" class="form-control" required placeholder="Course of Study">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Level of Study</label>
-                            <input type="text" name="level_of_study" class="form-control" required placeholder="Level of Study">
+                            <label class="form-label">Level of study</label>
+                            <select class="form-control" name="level_of_study" required>
+                                <option value="">Choose one</option>
+                                @foreach($listLevelOfStudy as $level)
+                                    <option value="{{ $level }}">{{ $level }}</option>
+                                @endforeach
+                            </select>
                         </div>
+                       
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
@@ -96,23 +89,21 @@
             </div>
         </form>
         @foreach($student->academicHistories as $edu)
-        <form action="{{ route('student.academic-history.update', $edu->id) }}" method="POST" class="mt-3">
-            @csrf
-            @method('PUT')
-            <input type="hidden" name="student_id" value="{{ $student->id }}">
-            <div class="card mb-4">
-                <div class="card-header bg-success text-white">
-                    <strong>Education</strong>
-                    <form action="{{ route('student.academic-history.destroy', $edu->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-light text-danger border-0" title="Delete">
-                            <i class="bi bi-trash"></i>
-                        </button>
-                    </form>
-                </div>
-
-                <div class="card-body row">
+        <div class="card mb-4 position-relative">
+            <div class="card-header bg-success text-white d-flex">
+                <strong>Education</strong>
+                <form action="{{ route('student.academic-history.destroy', $edu->id) }}" method="POST" onsubmit="return confirm('Delete this record?')" class="m-0 p-0">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-sm btn-light text-danger border-0" title="Delete">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </form>
+            </div>
+            <div class="card-body">
+                <form action="{{ route('student.academic-history.update', $edu->id) }}" method="POST" class="mt-3 row">
+                    @csrf
+                    @method('PUT')
                     <input type="hidden" name="student_id" value="{{ $student->id }}">
                     <div class="col-md-6">
                         <div class="mb-3">
@@ -128,8 +119,13 @@
                             <input type="text" name="course_of_study" value="{{ $edu->course_of_study }}" class="form-control" required placeholder="Course of Study">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Level of Study</label>
-                            <input type="text" name="level_of_study" value="{{ $edu->level_of_study }}" class="form-control" required placeholder="Level of Study">
+                            <label class="form-label">Level of study</label>
+                            <select class="form-control" name="level_of_study" required>
+                                <option value="">Choose one</option>
+                                @foreach($listLevelOfStudy as $level)
+                                    <option value="{{ $level }}" {{$edu->level_of_study == $level ? 'selected' : ''}}>{{ $level }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -156,9 +152,9 @@
                             <button type="submit" class="btn btn-primary btn-sm">Update</button>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
-        </form>
+        </div>
         @endforeach
     </div>
 </div>
@@ -172,7 +168,7 @@
             @csrf
             <div class="card mb-4">
                 <div class="card-header bg-primary text-white">
-                    <strong>Education</strong>
+                    <strong>Add New Academic Interest</strong>
                 </div>
                 <div class="card-body row">
                     <input type="hidden" name="student_id" value="{{ $student->id }}">
@@ -216,6 +212,65 @@
                 </div>
             </div>
         </form>
+
+        @foreach($student->academicInterests as $interest)
+        <div class="card mb-4 position-relative">
+            <div class="card-header bg-success text-white d-flex">
+                <strong>Academic Interest</strong>
+                <form action="{{ route('student.academic-interest.destroy', $interest->id) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-sm btn-light text-danger border-0" title="Delete">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </form>
+            </div>
+            <div class="card-body">
+                <form action="{{ route('student.academic-interest.update',$interest->id) }}" method="POST" class="mt-3 row">
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" name="student_id" value="{{ $student->id }}">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Level of study</label>
+                            <select class="form-control" name="level_study" required>
+                                <option value="">Choose one</option>
+                                @foreach($listLevelOfStudy as $level)
+                                    <option value="{{ $level }}" {{$interest->level_study == $level ? 'selected' : ''}}>{{ $level }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Disciplines</label>
+                            <select class="form-control" name="discipline" required>
+                                <option value="">Choose one</option>
+                                @foreach($listDisciplines as $disciplines)
+                                    <option value="{{ $disciplines }}" {{$interest->discipline == $disciplines ? 'selected' : ''}}>{{ $disciplines }}</option>
+                                @endforeach
+                            </select>                        
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Programme</label>
+                            <input type="text" name="program_type" class="form-control" required placeholder="Programme" value="{{ $interest->program_type }}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Start Date</label>
+                            <input type="date" name="start_date" class="form-control" value="{{$interest->start_date}}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Location</label>
+                            <input type="text" name="location" class="form-control" value="{{$interest->location}}" required placeholder="Location">
+                        </div>
+                        <div class="mb-3 text-end">
+                            <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        @endforeach
     </div>
 </div>
 <!-- <div class="card mt-3">

@@ -18,6 +18,8 @@ use App\Http\Controllers\StudentDocumentController;
 use App\Http\Controllers\StudentAcademicInterestController;
 use App\Http\Controllers\StudentExamScoreController;
 use App\Http\Controllers\StudentRefereeController;
+use App\Http\Controllers\StudentApplicationController;
+use App\Http\Controllers\StudentApplicationHistoryController;
 use App\Http\Controllers\MasterDocumentController;
 
 use App\Http\Controllers\Backoffice\PermissionController;
@@ -69,7 +71,7 @@ Route::prefix('backoffice')
         Route::resource('permissions', PermissionController::class);
         Route::resource('users', UserController::class);
 });
-Route::resource('student', StudentController::class);
+Route::resource('student', StudentController::class)->middleware(['auth', 'role:superadmin|admin']);
 Route::prefix('student')->as('student.')->middleware(['auth', 'role:superadmin|admin|student'])->group(function () {
     Route::resource('emergency-contact', StudentEmergencyContactController::class);
     Route::resource('address', StudentAddressController::class);
@@ -80,7 +82,10 @@ Route::prefix('student')->as('student.')->middleware(['auth', 'role:superadmin|a
     Route::resource('academic-interest', StudentAcademicInterestController::class)->except(['index', 'show', 'create', 'edit']);
     Route::resource('exam-score', StudentExamScoreController::class)->except(['index', 'show', 'create', 'edit']);
     Route::resource('referee', StudentRefereeController::class)->except(['index', 'show', 'create', 'edit']);
-});
+    Route::resource('applications', StudentApplicationController::class)->except(['index', 'show', 'create', 'edit']);
+    Route::resource('history-applications', StudentApplicationHistoryController::class)->except(['index', 'show', 'create', 'edit']);
+
+})->middleware(['auth', 'role:superadmin|admin']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
