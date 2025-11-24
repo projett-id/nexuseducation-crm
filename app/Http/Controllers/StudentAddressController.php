@@ -10,17 +10,19 @@ class StudentAddressController extends Controller
     public function store(Request $request)
     {
         foreach ($request->type as $type) {
-            StudentAddress::updateOrCreate(
-                ['student_id' => $request->student_id, 'type' => $type],
-                [
-                    'country'    => $request->country[$type],
-                    'address_1'  => $request->address_1[$type],
-                    'address_2'  => $request->address_2[$type],
-                    'post_code'  => $request->post_code[$type],
-                    'state'      => $request->state[$type],
-                    'city'       => $request->city[$type],
-                ]
-            );
+            if($request->country[$type] !=""){
+                StudentAddress::updateOrCreate(
+                    ['student_id' => $request->student_id, 'type' => $type],
+                    [
+                        'country'    => $request->country[$type],
+                        'address_1'  => $request->address_1[$type],
+                        'address_2'  => $request->address_2[$type],
+                        'post_code'  => $request->post_code[$type],
+                        'state'      => $request->state[$type],
+                        'city'       => $request->city[$type],
+                    ]
+                );
+            }
         }
         return back()->with('success', 'Address added.');
     }

@@ -18,7 +18,7 @@ class StudentDocumentController extends Controller
         $maxSizeKB = $master->max_file_size * 1024; // Jika max_file_size dalam MB
 
         // Buat rule ekstensi
-        $extensions = explode(',', str_replace(' ', '', $master->allowed_file_type));
+        $extensions = array_map('strtolower', explode(',', str_replace(' ', '', $master->allowed_file_type)));
         $mimesRule = 'mimes:' . implode(',', $extensions);
 
         $validated = $request->validate([
@@ -39,7 +39,7 @@ class StudentDocumentController extends Controller
         $master = MasterDocument::findOrFail($request->document_master_id);
 
         $maxSizeKB = $master->max_file_size * 1024;
-        $extensions = explode(',', str_replace(' ', '', $master->allowed_file_type));
+        $extensions = array_map('strtolower', explode(',', str_replace(' ', '', $master->allowed_file_type)));
         $mimesRule = 'mimes:' . implode(',', $extensions);
 
         $validated = $request->validate([

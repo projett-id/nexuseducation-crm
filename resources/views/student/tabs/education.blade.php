@@ -175,21 +175,25 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label class="form-label">Level of study</label>
-                            <select class="form-control" name="level_study" required>
+                            <select class="form-control level-study-select" name="level_study" required>
                                 <option value="">Choose one</option>
                                 @foreach($listLevelOfStudy as $level)
                                     <option value="{{ $level }}">{{ $level }}</option>
                                 @endforeach
+                                <option value="Other">Other</option>
                             </select>
+                            <input type="text" name="level_study_other" class="form-control mt-2 level-study-other d-none" placeholder="Enter other level of study">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Disciplines</label>
-                            <select class="form-control" name="discipline" required>
+                            <select class="form-control discipline-select" name="discipline" required>
                                 <option value="">Choose one</option>
                                 @foreach($listDisciplines as $disciplines)
                                     <option value="{{ $disciplines }}">{{ $disciplines }}</option>
                                 @endforeach
+                                <option value="Other">Other</option>
                             </select>                        
+                            <input type="text" name="discipline_other" class="form-control mt-2 discipline-other d-none" placeholder="Enter other discipline">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Programme</label>
@@ -233,21 +237,39 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label class="form-label">Level of study</label>
-                            <select class="form-control" name="level_study" required>
+                            @php
+                                $isCustomLevel = !in_array($interest->level_study, $listLevelOfStudy);
+                            @endphp
+                            <select class="form-control level-study-select" name="level_study" required>
                                 <option value="">Choose one</option>
                                 @foreach($listLevelOfStudy as $level)
                                     <option value="{{ $level }}" {{$interest->level_study == $level ? 'selected' : ''}}>{{ $level }}</option>
                                 @endforeach
+                                <option value="Other" {{ $isCustomLevel ? 'selected' : '' }}>Other</option>
                             </select>
+                            <input type="text" 
+                                name="level_study_other" 
+                                class="form-control mt-2 level-study-other {{ $isCustomLevel ? '' : 'd-none' }}"
+                                placeholder="Please specify"
+                                value="{{ $isCustomLevel ? $interest->level_study : '' }}">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Disciplines</label>
-                            <select class="form-control" name="discipline" required>
+                             @php
+                                $isCustomDiscipline = !in_array($interest->discipline, $listDisciplines);
+                            @endphp
+                            <select class="form-control discipline-select" name="discipline" required>
                                 <option value="">Choose one</option>
                                 @foreach($listDisciplines as $disciplines)
                                     <option value="{{ $disciplines }}" {{$interest->discipline == $disciplines ? 'selected' : ''}}>{{ $disciplines }}</option>
                                 @endforeach
-                            </select>                        
+                                <option value="Other" {{ $isCustomDiscipline ? 'selected' : '' }}>Other</option>
+                            </select> 
+                            <input type="text" 
+                                    name="discipline_other" 
+                                    class="form-control mt-2 discipline-other {{ $isCustomDiscipline ? '' : 'd-none' }}"
+                                    placeholder="Please specify"
+                                    value="{{ $isCustomDiscipline ? $interest->discipline : '' }}">   
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Programme</label>

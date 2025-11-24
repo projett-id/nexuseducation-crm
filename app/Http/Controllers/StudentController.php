@@ -45,7 +45,7 @@ class StudentController extends Controller
             'passport_expiry_date' => 'nullable|date',
         ]);
         $student = Student::create($validated);
-        return redirect()->route('student.show', $student->id)->with('success', 'Student created successfully.');
+        return back()->with('success', 'Student created successfully.');
     }
 
     // Show student detail
@@ -90,7 +90,7 @@ class StudentController extends Controller
             'passport_expiry_date' => 'nullable|date',
         ]);
         $student->update($validated);
-        return redirect()->route('student.show', $student->id)->with('success', 'Student updated successfully.');
+        return back()->with('success', 'Student updated successfully.');
     }
 
     // Delete student

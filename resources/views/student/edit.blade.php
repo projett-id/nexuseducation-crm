@@ -3,6 +3,20 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css">
 @endpush
 @section('content')
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+@if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 <div class="container">
     <h2>Update Student</h2>
         <ul class="nav nav-tabs" id="studentTab" role="tablist">
@@ -65,6 +79,36 @@ document.addEventListener("DOMContentLoaded", function() {
       closeOnSelect: false
     }
   });
+
+    // Level of Study
+    document.querySelectorAll('.level-study-select').forEach(function(select){
+        select.addEventListener('change', function(){
+            const otherInput = this.closest('.mb-3').querySelector('.level-study-other');
+            if (this.value === 'Other') {
+                otherInput.classList.remove('d-none');
+                otherInput.required = true;
+            } else {
+                otherInput.classList.add('d-none');
+                otherInput.required = false;
+                otherInput.value = '';
+            }
+        });
+    });
+
+    // Discipline
+    document.querySelectorAll('.discipline-select').forEach(function(select){
+        select.addEventListener('change', function(){
+            const otherInput = this.closest('.mb-3').querySelector('.discipline-other');
+            if (this.value === 'Other') {
+                otherInput.classList.remove('d-none');
+                otherInput.required = true;
+            } else {
+                otherInput.classList.add('d-none');
+                otherInput.required = false;
+                otherInput.value = '';
+            }
+        });
+    });
 
   
 });

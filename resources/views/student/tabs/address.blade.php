@@ -51,27 +51,27 @@ $current = $student->addresses->where('type','current')->first();
 
                     <div class="mb-3">
                         <label class="form-label">Country</label>
-                        <input type="text" name="country[current]" value="{{ old('country.current',$current->city ?? '') }}" class="form-control" required placeholder="Country">
+                        <input type="text" name="country[current]" value="{{ old('country.current',$current->country ?? '') }}" class="form-control" placeholder="Country">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Address 1</label>
-                        <input type="text" name="address_1[current]" value="{{ old('address_1.current',$current->city ?? '') }}" class="form-control" required placeholder="Address 1">
+                        <input type="text" name="address_1[current]" value="{{ old('address_1.current',$current->address_1 ?? '') }}" class="form-control" placeholder="Address 1">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Address 2</label>
-                        <input type="text" name="address_2[current]" value="{{ old('address_2.current',$current->city ?? '') }}" class="form-control" placeholder="Address 2">
+                        <input type="text" name="address_2[current]" value="{{ old('address_2.current',$current->address_2 ?? '') }}" class="form-control" placeholder="Address 2">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Postal Code</label>
-                        <input type="text" name="post_code[current]" value="{{ old('post_code.current',$current->city ?? '') }}" class="form-control" required placeholder="Post Code">
+                        <input type="text" name="post_code[current]" value="{{ old('post_code.current',$current->post_code ?? '') }}" class="form-control" placeholder="Post Code">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">State</label>
-                        <input type="text" name="state[current]" value="{{ old('state.current',$current->city ?? '') }}" class="form-control" required placeholder="State">
+                        <input type="text" name="state[current]" value="{{ old('state.current',$current->State ?? '') }}" class="form-control" placeholder="State">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">City</label>
-                        <input type="text" name="city[current]" value="{{ old('city.current',$current->city ?? '') }}" class="form-control" required placeholder="City">
+                        <input type="text" name="city[current]" value="{{ old('city.current',$current->city ?? '') }}" class="form-control" placeholder="City">
                     </div>
                 </div>
             </div>

@@ -16,7 +16,19 @@ class StudentAcademicInterestController extends Controller
             'program_type' => 'required|string',
             'start_date' => 'required|date',
             'location' => 'nullable|string',
+            'level_study_other'=>'nullable|string',
+            'discipline_other'=>'nullable|string',
         ]);
+
+        if ($validated['level_study'] === 'Other') {
+            $validated['level_study'] = $validated['level_study_other'];
+        }
+        if ($validated['discipline'] === 'Other') {
+            $validated['discipline'] = $validated['discipline_other'];
+        }
+
+        unset($validated['level_study_other'], $validated['discipline_other']);
+        
         StudentAcademicInterest::create($validated);
         return back()->with('success', 'Academic interest added.');
     }
@@ -30,7 +42,19 @@ class StudentAcademicInterestController extends Controller
             'program_type' => 'required|string',
             'start_date' => 'required|date',
             'location' => 'nullable|string',
+            'level_study_other'=>'nullable|string',
+            'discipline_other'=>'nullable|string',
         ]);
+        
+        if ($validated['level_study'] === 'Other') {
+            $validated['level_study'] = $validated['level_study_other'];
+        }
+        if ($validated['discipline'] === 'Other') {
+            $validated['discipline'] = $validated['discipline_other'];
+        }
+
+        unset($validated['level_study_other'], $validated['discipline_other']);
+
         $interest->update($validated);
         return back()->with('success', 'Academic interest updated.');
     }
