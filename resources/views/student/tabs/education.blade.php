@@ -40,19 +40,19 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label class="form-label">Country</label>
-                            <input type="text" name="country" class="form-control" required placeholder="Country">
+                            <input type="text" name="country" class="form-control" placeholder="Country">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Institution Name</label>
-                            <input type="text" name="institution_name" class="form-control" required placeholder="Institution Name">
+                            <input type="text" name="institution_name" class="form-control" placeholder="Institution Name">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Course of Study</label>
-                            <input type="text" name="course_of_study" class="form-control" required placeholder="Course of Study">
+                            <input type="text" name="course_of_study" class="form-control" placeholder="Course of Study">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Level of study</label>
-                            <select class="form-control" name="level_of_study" required>
+                            <select class="form-control" name="level_of_study">
                                 <option value="">Choose one</option>
                                 @foreach($listLevelOfStudy as $level)
                                     <option value="{{ $level }}">{{ $level }}</option>
@@ -64,22 +64,22 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label class="form-label">Start Date</label>
-                            <input type="date" name="start_date" class="form-control" required>
+                            <input type="text" name="start_date" class="form-control form-month">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">End Date</label>
-                            <input type="date" name="end_date" class="form-control" required>
+                            <input type="text" name="end_date" class="form-control form-month">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Time</label>
-                            <select name="shift" class="form-control" required>
+                            <select name="shift" class="form-control">
                                 <option value="Full-time">Full-time</option>
                                 <option value="Part-time">Part-time</option>
                             </select>                
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Grading Score</label>
-                            <input type="text" name="grading_score" class="form-control" required placeholder="Grading Score">
+                            <input type="text" name="grading_score" class="form-control" placeholder="Grading Score">
                         </div>
                         <div class="mb-3 text-end">
                             <button type="submit" class="btn btn-primary btn-sm">Add</button>
@@ -108,19 +108,19 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label class="form-label">Country</label>
-                            <input type="text" name="country" value="{{ $edu->country }}" class="form-control" required placeholder="Country">
+                            <input type="text" name="country" value="{{ $edu->country }}" class="form-control" placeholder="Country">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Institution Name</label>
-                            <input type="text" name="institution_name" value="{{ $edu->institution_name }}" class="form-control" required placeholder="Institution Name">
+                            <input type="text" name="institution_name" value="{{ $edu->institution_name }}" class="form-control" placeholder="Institution Name">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Course of Study</label>
-                            <input type="text" name="course_of_study" value="{{ $edu->course_of_study }}" class="form-control" required placeholder="Course of Study">
+                            <input type="text" name="course_of_study" value="{{ $edu->course_of_study }}" class="form-control" placeholder="Course of Study">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Level of study</label>
-                            <select class="form-control" name="level_of_study" required>
+                            <select class="form-control" name="level_of_study">
                                 <option value="">Choose one</option>
                                 @foreach($listLevelOfStudy as $level)
                                     <option value="{{ $level }}" {{$edu->level_of_study == $level ? 'selected' : ''}}>{{ $level }}</option>
@@ -131,22 +131,22 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label class="form-label">Start Date</label>
-                            <input type="date" name="start_date" class="form-control" required value="{{ $edu->start_date }}">
+                            <input type="text" name="start_date" class="form-control form-month" value="{{ $edu->start_date ? \Carbon\Carbon::parse($edu->start_date)->format('Y-m') : '' }}">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">End Date</label>
-                            <input type="date" name="end_date" class="form-control" required value="{{ $edu->end_date }}">
+                            <input type="text" name="end_date" class="form-control form-month" value="{{ $edu->end_date ? \Carbon\Carbon::parse($edu->end_date)->format('Y-m') : '' }}">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Time</label>
-                            <select name="shift" class="form-control" required>
+                            <select name="shift" class="form-control">
                                 <option value="Full-time" {{ $edu->shift == 'Full-time' ? 'selected' : '' }}>Full-time</option>
                                 <option value="Part-time" {{ $edu->shift == 'Part-time' ? 'selected' : '' }}>Part-time</option>
                             </select>                
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Grading Score</label>
-                            <input type="text" name="grading_score" class="form-control" required placeholder="Grading Score" value="{{ $edu->grading_score }}">
+                            <input type="text" name="grading_score" class="form-control" placeholder="Grading Score" value="{{ $edu->grading_score }}">
                         </div>
                         <div class="mb-3 text-end">
                             <button type="submit" class="btn btn-primary btn-sm">Update</button>
@@ -203,7 +203,7 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label class="form-label">Start Date</label>
-                            <input type="date" name="start_date" class="form-control" required>
+                            <input type="text" name="start_date" class="form-control form-month" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Location</label>
@@ -279,7 +279,7 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label class="form-label">Start Date</label>
-                            <input type="date" name="start_date" class="form-control" value="{{$interest->start_date}}" required>
+                            <input type="text" name="start_date" class="form-control form-month" value="{{ $interest->start_date ? \Carbon\Carbon::parse($interest->start_date)->format('Y-m') : '' }}" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Location</label>

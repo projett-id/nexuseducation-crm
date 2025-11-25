@@ -14,12 +14,13 @@ class StudentAcademicInterestController extends Controller
             'level_study' => 'required|string',
             'discipline' => 'required|string',
             'program_type' => 'required|string',
-            'start_date' => 'required|date',
+            'start_date' => 'required',
             'location' => 'nullable|string',
             'level_study_other'=>'nullable|string',
             'discipline_other'=>'nullable|string',
         ]);
 
+        $validated['start_date'] = \Carbon\Carbon::createFromFormat('Y-m', $request->start_date)->startOfMonth();
         if ($validated['level_study'] === 'Other') {
             $validated['level_study'] = $validated['level_study_other'];
         }
@@ -40,11 +41,12 @@ class StudentAcademicInterestController extends Controller
             'level_study' => 'required|string',
             'discipline' => 'required|string',
             'program_type' => 'required|string',
-            'start_date' => 'required|date',
+            'start_date' => 'required',
             'location' => 'nullable|string',
             'level_study_other'=>'nullable|string',
             'discipline_other'=>'nullable|string',
         ]);
+        $validated['start_date'] = \Carbon\Carbon::createFromFormat('Y-m', $request->start_date)->startOfMonth();
         
         if ($validated['level_study'] === 'Other') {
             $validated['level_study'] = $validated['level_study_other'];

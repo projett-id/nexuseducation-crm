@@ -16,11 +16,14 @@ class StudentAcademicHistoryController extends Controller
             'institution_name' => 'required|string',
             'course_of_study' => 'required|string',
             'level_of_study' => 'required|string',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date',
+            'start_date' => 'required',
+            'end_date' => 'required',
             'shift' => 'required|in:Full-time,Part-time',
             'grading_score' => 'required|string',
         ]);
+        $validated['start_date'] = \Carbon\Carbon::createFromFormat('Y-m', $request->start_date)->startOfMonth();
+        $validated['end_date']   = \Carbon\Carbon::createFromFormat('Y-m', $request->end_date)->startOfMonth();
+
         StudentAcademicHistory::create($validated);
         return back()->with('success', 'Academic history added.');
     }
@@ -33,11 +36,13 @@ class StudentAcademicHistoryController extends Controller
             'institution_name' => 'required|string',
             'course_of_study' => 'required|string',
             'level_of_study' => 'required|string',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date',
+            'start_date' => 'required',
+            'end_date' => 'required',
             'shift' => 'required|in:Full-time,Part-time',
             'grading_score' => 'required|string',
         ]);
+        $validated['start_date'] = \Carbon\Carbon::createFromFormat('Y-m', $request->start_date)->startOfMonth();
+        $validated['end_date']   = \Carbon\Carbon::createFromFormat('Y-m', $request->end_date)->startOfMonth();
         $history->update($validated);
         return back()->with('success', 'Academic history updated.');
     }

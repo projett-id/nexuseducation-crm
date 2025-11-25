@@ -22,7 +22,7 @@
             </div>
             <div class="mb-3">
                 <label>Date of Birth *</label>
-                <input type="date" name="date_of_birth" class="form-control" value="{{ old('date_of_birth', $student->date_of_birth ?? '') }}" required>
+                <input type="text" name="date_of_birth" class="form-control form-date" value="{{ old('date_of_birth', $student->date_of_birth ?? '') }}" required>
             </div>
             <div class="mb-3">
                 <label>Gender *</label>
@@ -36,8 +36,20 @@
                 <label>Country of Birth *</label>
                 <input type="text" name="country_of_birth" class="form-control" value="{{ old('country_of_birth', $student->country_of_birth ?? '') }}" required>
             </div>
+            <div class="mb-3">
+                <label>Religion *</label>
+                <input type="text" name="religion" class="form-control" value="{{ old('religion', $student->religion ?? '') }}" required>
+            </div>
         </div>
         <div class="col-md-6">
+            <div class="mb-3">
+                <label>Agent Name</label>
+                <input type="text" name="agent_name" class="form-control" value="{{ old('agent_name', $student->agent_name ?? '') }}">
+            </div>
+            <div class="mb-3">
+                <label>Agent Company</label>
+                <input type="text" name="agent_company" class="form-control" value="{{ old('agent_company', $student->agent_company ?? '') }}">
+            </div>
             <div class="mb-3">
                 <label>Native Language</label>
                 <input type="text" name="native_language" class="form-control" value="{{ old('native_language', $student->native_language ?? '') }}">
@@ -56,11 +68,11 @@
             </div>
             <div class="mb-3">
                 <label>Passport Issue Date</label>
-                <input type="date" name="passport_issue_date" class="form-control" value="{{ old('passport_issue_date', $student->passport_issue_date ?? '') }}">
+                <input type="text" name="passport_issue_date" class="form-control form-date" value="{{ old('passport_issue_date', $student->passport_issue_date ?? '') }}">
             </div>
             <div class="mb-3">
                 <label>Passport Expiry Date</label>
-                <input type="date" name="passport_expiry_date" class="form-control" value="{{ old('passport_expiry_date', $student->passport_expiry_date ?? '') }}">
+                <input type="text" name="passport_expiry_date" class="form-control form-date" value="{{ old('passport_expiry_date', $student->passport_expiry_date ?? '') }}">
             </div>
         </div>
     </div>

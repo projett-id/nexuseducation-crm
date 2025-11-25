@@ -19,6 +19,10 @@
                     <label class="form-label">Institution Name</label>
                     <input type="text" name="institution_name" class="form-control" required placeholder="Institution Name">
                 </div>
+                <div class="mb-3">
+                    <label class="form-label">Start Date</label>
+                    <input type="text" name="start_date" class="form-control form-month" required placeholder="Start Date">
+                </div>
             </div>
             <div class="col-md-6">
                  <div class="mb-3">

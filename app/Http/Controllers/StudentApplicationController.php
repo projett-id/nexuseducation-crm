@@ -15,8 +15,10 @@ class StudentApplicationController extends Controller
             'country' => 'required|string',
             'institution_name' => 'required|string',
             'level_of_study' => 'required|string',
+            'start_date' => 'required',
             'programme' => 'required|string'
         ]);
+        $validated['start_date'] = \Carbon\Carbon::createFromFormat('Y-m', $request->start_date)->startOfMonth();
         $country = json_decode($request->country)[0]->value ?? null;
         $validated['country'] = $country;
         StudentApplications::create($validated);
@@ -31,6 +33,7 @@ class StudentApplicationController extends Controller
             'country' => 'required|string',
             'institution_name' => 'required|string',
             'level_of_study' => 'required|string',
+            'start_date' => 'required',
             'programme' => 'required|string'
         ]);
         $history->update($validated);

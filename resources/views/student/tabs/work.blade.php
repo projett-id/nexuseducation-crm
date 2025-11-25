@@ -28,11 +28,11 @@
             <div class="col-md-6">
                   <div class="mb-3">
                     <label class="form-label">Start Date</label>
-                    <input type="date" name="start_date" class="form-control" required>
+                    <input type="text" name="start_date" class="form-control form-date" required>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">End Date</label>
-                    <input type="date" name="end_date" class="form-control">
+                    <input type="text" name="end_date" class="form-control form-date">
                 </div>
                 <input type="checkbox" name="currently_working" value="1"> Currently Working Here
                 <div class="mb-3 text-end">
@@ -81,11 +81,11 @@
                 <div class="col-md-6">
                     <div class="mb-3">
                         <label class="form-label">Start Date</label>
-                        <input type="date" name="start_date" class="form-control" value="{{ date('Y-m-d') }}" required>
+                        <input type="text" name="start_date" class="form-control form-date" value="{{ date('Y-m-d') }}" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">End Date</label>
-                        <input type="date" name="end_date" class="form-control" value="{{ $work->end_date }}">
+                        <input type="text" name="end_date" class="form-control form-date" value="{{ $work->end_date }}">
                     </div>
                     @if($work->currently_working)
                         <input type="checkbox" name="currently_working" value="1" checked> Currently Working Here

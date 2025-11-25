@@ -1,7 +1,7 @@
 @foreach($student->applications as $dt)
 <div class="card mb-4">
     <div class="card-header bg-primary text-white">
-        <strong>{{ $dt->country }} - {{ $dt->institution_name }} - {{ $dt->level_of_study }} - {{ $dt->programme }}</strong>
+        <strong>{{$dt->start_date ? '['.\Carbon\Carbon::parse($dt->start_date)->format('Y-m').']': ''}} {{ $dt->country }} - {{ $dt->institution_name }} - {{ $dt->level_of_study }} - {{ $dt->programme }}</strong>
     </div>
     <div class="card-body row">
         <form action="{{ route('student.history-applications.store') }}" method="POST" class="col-md-12 mb-3" enctype="multipart/form-data">

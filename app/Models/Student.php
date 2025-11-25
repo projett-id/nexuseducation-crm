@@ -23,6 +23,9 @@ class Student extends Model
         'passport_number',
         'passport_issue_date',
         'passport_expiry_date',
+        'agent_name',
+        'agent_company',
+        'religion'
     ];
 
     public function addresses()
@@ -72,5 +75,10 @@ class Student extends Model
 
     public function applications(){
         return $this->hasMany(StudentApplications::class);
+    }
+
+    public function siblings()
+    {
+        return $this->hasMany(StudentSiblings::class);
     }
 }

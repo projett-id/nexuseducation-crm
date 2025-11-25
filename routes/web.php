@@ -11,6 +11,7 @@ use App\Http\Controllers\Backoffice\RoleController;
 
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentEmergencyContactController;
+use App\Http\Controllers\StudentSiblingsController;
 use App\Http\Controllers\StudentAddressController;
 use App\Http\Controllers\StudentAcademicHistoryController;
 use App\Http\Controllers\StudentWorkDetailController;
@@ -74,6 +75,7 @@ Route::prefix('backoffice')
 Route::resource('student', StudentController::class)->middleware(['auth', 'role:superadmin|admin']);
 Route::prefix('student')->as('student.')->middleware(['auth', 'role:superadmin|admin|student'])->group(function () {
     Route::resource('emergency-contact', StudentEmergencyContactController::class);
+    Route::resource('siblings', StudentSiblingsController::class);
     Route::resource('address', StudentAddressController::class);
     Route::post('destination-country', [StudentAcademicHistoryController::class, 'storeDestinationCountry'])->name('destination-country.store');
     Route::resource('academic-history', StudentAcademicHistoryController::class)->except(['index', 'show', 'create', 'edit']);
