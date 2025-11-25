@@ -67,7 +67,7 @@ $current = $student->addresses->where('type','current')->first();
                     </div>
                     <div class="mb-3">
                         <label class="form-label">State</label>
-                        <input type="text" name="state[current]" value="{{ old('state.current',$current->State ?? '') }}" class="form-control" placeholder="State">
+                        <input type="text" name="state[current]" value="{{ old('state.current',$current->state ?? '') }}" class="form-control" placeholder="State">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">City</label>

@@ -43,6 +43,9 @@ class StudentController extends Controller
             'passport_number' => 'nullable|string',
             'passport_issue_date' => 'nullable|date',
             'passport_expiry_date' => 'nullable|date',
+            'religion' => 'nullable|string',
+            'agent_name' => 'nullable|string',
+            'agent_company' => 'nullable|string',
         ]);
         $student = Student::create($validated);
         return back()->with('success', 'Student created successfully.');
@@ -88,6 +91,9 @@ class StudentController extends Controller
             'passport_number' => 'nullable|string',
             'passport_issue_date' => 'nullable|date',
             'passport_expiry_date' => 'nullable|date',
+            'religion' => 'nullable|string',
+            'agent_name' => 'nullable|string',
+            'agent_company' => 'nullable|string',
         ]);
         $student->update($validated);
         return back()->with('success', 'Student updated successfully.');
