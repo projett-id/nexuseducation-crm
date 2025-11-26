@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Student;
 use App\Models\Country;
 use App\Models\MasterDocument;
+use App\Models\StudentApplications;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -16,6 +17,12 @@ class StudentController extends Controller
         return view('student.index', compact('students'));
     }
 
+    public function listApplications(){
+        $applications = StudentApplications::all();
+        return view('applications', compact('applications'));
+    }
+
+    
     // Show create form
     public function create()
     {

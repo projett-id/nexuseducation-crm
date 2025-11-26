@@ -2,27 +2,6 @@
     $selectedCountries = $student->destinationStudies->pluck('country')->toArray();
 @endphp
 
-<form action="{{ route('student.destination-country.store') }}" method="POST" class="mt-3">
-    @csrf
-    <input type="hidden" name="student_id" value="{{ $student->id }}">
-    <div class="card mb-4">
-        <div class="card-header bg-primary text-white">
-            <strong>Destination Countries</strong>
-        </div>
-        <div class="card-body row">
-            <div class="col-md-12">
-                <div class="mb-3">
-                    <label class="form-label">Country</label>
-                    <input id="countryTags" name="countries" class="form-control" placeholder="Type or select country" value="{{ implode(',', $selectedCountries) }}">
-                </div>
-                <div class="mb-3 text-end">
-                    <button type="submit" class="btn btn-primary btn-sm">Save</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
-
 <div class="card mt-5">
     <div class="card-header bg-primary text-white">
         <strong>Academic History</strong>
@@ -158,6 +137,27 @@
         @endforeach
     </div>
 </div>
+
+<form action="{{ route('student.destination-country.store') }}" method="POST" class="mt-3">
+    @csrf
+    <input type="hidden" name="student_id" value="{{ $student->id }}">
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <strong>Destination Countries</strong>
+        </div>
+        <div class="card-body row">
+            <div class="col-md-12">
+                <div class="mb-3">
+                    <label class="form-label">Country</label>
+                    <input id="countryTags" name="countries" class="form-control" placeholder="Type or select country" value="{{ implode(',', $selectedCountries) }}">
+                </div>
+                <div class="mb-3 text-end">
+                    <button type="submit" class="btn btn-primary btn-sm">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 
 <div class="card mt-5">
     <div class="card-header bg-primary text-white">

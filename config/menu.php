@@ -14,6 +14,12 @@ return [
         'permission' => 'master-document.view',
     ],
     [
+        'title' => 'Application',
+        'icon'  => 'bi bi-download',
+        'route' => 'application.list',
+        'permission' => 'student.view',
+    ],
+    [
         'title' => 'Student',
         'icon'  => 'bi bi-people',
         'route' => 'student.index',

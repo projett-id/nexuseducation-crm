@@ -23,7 +23,22 @@ class StudentApplicationHistoryController extends Controller
         }
         StudentApplicationHistory::create($validated);
         StudentApplications::where('id',$validated['application_id'])->update(['last_status'=>$request->status]);
-        return back()->with('success', 'Academic history added.');
+        return back()->with('success', 'History application added.');
+    }
+
+    public function updateDocs(Request $request, $id){
+        $history = StudentApplicationHistory::findOrFail($id);
+        $validated = $request->validate([
+            'attachment' => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048',
+        ]);
+        
+        if ($request->hasFile('attachment')) {
+            $filePath = $request->file('attachment')->store('documents/applications/'.$history->application_id, 'public');
+            $validated['attachment'] = $filePath;
+        }
+
+        $history->update($validated);
+        return back()->with('success', 'Document Application updated.');
     }
 
     public function update(Request $request, $id)
@@ -42,13 +57,13 @@ class StudentApplicationHistoryController extends Controller
         }
 
         $history->update($validated);
-        return back()->with('success', 'Academic history updated.');
+        return back()->with('success', 'History application updated.');
     }
 
     public function destroy($id)
     {
         $history = StudentApplicationHistory::findOrFail($id);
         $history->delete();
-        return back()->with('success', 'Academic history deleted.');
+        return back()->with('success', 'History application deleted.');
     }
 }

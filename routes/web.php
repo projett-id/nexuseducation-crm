@@ -86,10 +86,11 @@ Route::prefix('student')->as('student.')->middleware(['auth', 'role:superadmin|a
     Route::resource('referee', StudentRefereeController::class)->except(['index', 'show', 'create', 'edit']);
     Route::resource('applications', StudentApplicationController::class)->except(['index', 'show', 'create', 'edit']);
     Route::resource('history-applications', StudentApplicationHistoryController::class)->except(['index', 'show', 'create', 'edit']);
-
+    Route::put('history-applications/docs/{id}',[StudentApplicationHistoryController::class,'updateDocs'])->name('application.update.docs');
 })->middleware(['auth', 'role:superadmin|admin']);
 
 Route::middleware('auth')->group(function () {
+    Route::get('/applications', [StudentController::class, 'listApplications'])->name('application.list');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

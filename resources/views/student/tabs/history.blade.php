@@ -27,7 +27,7 @@
             <thead>
                 <th>Status</th>
                 <th>Note</th>
-                <th>Attachment</th>
+                <th colspan="2">Attachment</th>
                 <th>Date</th>
             </thead>
             <tbody>
@@ -36,7 +36,14 @@
                         <td>{{ $ht->status }}</td>
                         <td>{{ $ht->note }}</td>
                         <td>
-                        <a href="{{ asset('storage/' . $ht->attachment) }}" target="_blank">View Files</a>    
+                            <form action="{{ route('student.application.update.docs',['id'=>$ht->id]) }}" method="POST" enctype="multipart/form-data" class="auto-upload-form">
+                                @csrf 
+                                @method('PUT')
+                                <input type="file" name="attachment">
+                            </form>
+                        </td>
+                        <td>
+                            <a href="{{ asset('storage/' . $ht->attachment) }}" target="_blank"><i class="bi bi-eye"></i></a>    
                         </td>
                         <td>{{ $ht->created_at }}</td>
                     </tr>
@@ -46,3 +53,13 @@
     </div>
 </div>
 @endforeach
+
+<script>
+document.querySelectorAll('.auto-upload-form input[type="file"]').forEach(function(input) {
+    input.addEventListener('change', function() {
+        if (input.files.length > 0) {
+            input.closest('form').submit();
+        }
+    });
+});
+</script>
