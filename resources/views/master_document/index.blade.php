@@ -11,6 +11,7 @@
                     <thead>
                         <tr>
                             <th>Name</th>
+                            <th>Form</th>
                             <th>Type</th>
                             <th>Allowed File Type</th>
                             <th>Max File Size</th>
@@ -22,6 +23,7 @@
                         @foreach($documents as $doc)
                         <tr>
                             <td>{{ $doc->document_name }}</td>
+                            <td>{{ $doc->form_type }}</td>
                             <td>{{ $doc->document_type }}</td>
                             <td>{{ $doc->allowed_file_type }}</td>
                             <td>{{ $doc->max_file_size }}MB</td>

@@ -90,6 +90,11 @@ Route::prefix('student')->as('student.')->middleware(['auth', 'role:superadmin|a
     Route::put('history-applications/docs/{id}',[StudentApplicationHistoryController::class,'updateDocs'])->name('application.update.docs');
 })->middleware(['auth', 'role:superadmin|admin']);
 Route::resource('visa', VisaFormController::class)->middleware(['auth', 'role:superadmin|admin']);
+Route::prefix('documents-visa')->as('visa.document.')->middleware(['auth', 'role:superadmin|admin|student'])->group(function ()  {
+    Route::post('upload/', [VisaFormController::class, 'storeDocuments'])->name('store');
+    Route::delete('delete/{id}', [VisaFormController::class, 'destroyDocuments'])->name('destroy');
+});
+Route::resource('visa', VisaFormController::class)->middleware(['auth', 'role:superadmin|admin']);
 Route::middleware('auth')->group(function () {
     Route::get('/applications', [StudentController::class, 'listApplications'])->name('application.list');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -1,5 +1,19 @@
 @extends('admin.layouts.app')
 @section('content')
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+@if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 <div class="container">
 
     <h3 class="mb-4">Visa Application Form</h3>
@@ -36,6 +50,11 @@
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="visa-tab" data-bs-toggle="tab" data-bs-target="#visa" type="button">
                     Visa Info
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="visa-tab" data-bs-toggle="tab" data-bs-target="#documents" type="button">
+                    Documents
                 </button>
             </li>
         </ul>
@@ -116,6 +135,9 @@
                         <textarea name="address" class="form-control">{{$visa->address}}</textarea>
                     </div>
                 </div>
+                <div class="text-end mt-4 position-sticky" style="bottom: 20px; z-index: 99;">
+                    <input type="submit" value="Submit" class="btn btn-success px-5 py-2 shadow"/>
+                </div>
             </div>
 
 
@@ -169,6 +191,10 @@
                     <label>Coworker Phone</label>
                     <input type="text" value="{{$visa->coworker_phone}}" name="coworker_phone" class="form-control">
                 </div>
+
+                <div class="text-end mt-4 position-sticky" style="bottom: 20px; z-index: 99;">
+                    <input type="submit" value="Submit" class="btn btn-success px-5 py-2 shadow"/>
+                </div>
             </div>
 
 
@@ -215,6 +241,9 @@
                     <label>Mother Birth Date</label>
                     <input type="text" value="{{$visa->mother_birth_date}}" name="mother_birth_date" class="form-control form-date">
                 </div>
+                <div class="text-end mt-4 position-sticky" style="bottom: 20px; z-index: 99;">
+                    <input type="submit" value="Submit" class="btn btn-success px-5 py-2 shadow"/>
+                </div>
             </div>
 
 
@@ -240,6 +269,9 @@
                 <div class="mb-3">
                     <label>Email</label>
                     <input type="email" value="{{$visa->relative_email}}" name="relative_email" class="form-control">
+                </div>
+                <div class="text-end mt-4 position-sticky" style="bottom: 20px; z-index: 99;">
+                    <input type="submit" value="Submit" class="btn btn-success px-5 py-2 shadow"/>
                 </div>
             </div>
 
@@ -272,13 +304,119 @@
                     <label>Travel History (Last 12 Months)</label>
                     <textarea name="travel_history" class="form-control">{{$visa->travel_history}}</textarea>
                 </div>
+                <div class="text-end mt-4 position-sticky" style="bottom: 20px; z-index: 99;">
+                    <input type="submit" value="Submit" class="btn btn-success px-5 py-2 shadow"/>
+                </div>
             </div>
-
-        </div>
-        <div class="text-end mt-4 position-sticky" style="bottom: 20px; z-index: 99;">
-            <input type="submit" value="Submit" class="btn btn-success px-5 py-2 shadow"/>
-        </div>
     </form>
+    <div class="tab-pane fade" id="documents" role="tabpanel">
+            @php
+                $mandatoryDocs = $documentMasters->where('document_type', 'Mandatory');
+                $additionalDocs = $documentMasters->where('document_type', 'Additional');
+            @endphp
 
+            <h5>Mandatory Documents</h5>
+            @foreach($mandatoryDocs as $master)
+                <div class="card mb-3">
+                    <div class="card-header bg-primary text-white">
+                        {{ $master->document_name }}
+                    </div>
+                    <div class="card-body">
+                        @php
+                            $uploadedDocs = $visa->documents->where('document_master_id', $master->id);
+                        @endphp
+                        @if($uploadedDocs->count())
+                            <div class="mb-2">
+                                <strong>Uploaded Files:</strong>
+                                <ul>
+                                    @foreach($uploadedDocs as $uploaded)
+                                        <li class="mb-2">
+                                            <a href="{{ asset('storage/' . $uploaded->file_path) }}" target="_blank">{{ basename($uploaded->file_path) }}</a>
+                                            <form action="{{ route('visa.document.destroy', $uploaded->id) }}" method="POST" style="display:inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-danger btn-sm" onclick="return confirm('Delete this file?')">Delete</button>
+                                            </form>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                        @if($uploadedDocs->count() < $master->max_number_of_documents)
+                            <form action="{{ route('visa.document.store') }}" method="POST" enctype="multipart/form-data" class="auto-upload-form">
+                                @csrf
+                                <input type="hidden" name="visa_id" value="{{ $visa->id }}">
+                                <input type="hidden" name="document_master_id" value="{{ $master->id }}">
+                                <div class="mb-3">
+                                    <label class="form-label">Upload File</label>
+                                    <input type="file" name="file_path" class="form-control" required>
+                                </div>
+                                <small>Extension allowed: {{$master->allowed_file_type}}, with max file: {{$master->max_file_size}}MB</small>
+                            </form>
+                        @else
+                            <div class="alert alert-info">Maximum number of files uploaded ({{ $master->max_number_of_documents }}).</div>
+                        @endif
+                    </div>
+                </div>
+            @endforeach
+
+            <h5>Additional Documents</h5>
+            @foreach($additionalDocs as $master)
+                <div class="card mb-3">
+                    <div class="card-header bg-secondary text-white">
+                        {{ $master->document_name }}
+                    </div>
+                    <div class="card-body">
+                        @php
+                            $uploadedDocs = $visa->documents->where('document_master_id', $master->id);
+                        @endphp
+                        @if($uploadedDocs->count())
+                            <div class="mb-2">
+                                <strong>Uploaded Files:</strong>
+                                <ul>
+                                    @foreach($uploadedDocs as $uploaded)
+                                        <li class="mb-2">
+                                            <a href="{{ asset('storage/' . $uploaded->file_path) }}" target="_blank">{{ basename($uploaded->file_path) }}</a>
+                                            <form action="{{ route('visa.document.destroy', $uploaded->id) }}" method="POST" style="display:inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-danger btn-sm" onclick="return confirm('Delete this file?')">Delete</button>
+                                            </form>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                        @if($uploadedDocs->count() < $master->max_number_of_documents)
+                            <form action="{{ route('visa.document.store') }}" method="POST" enctype="multipart/form-data" class="auto-upload-form">
+                                @csrf
+                                <input type="hidden" name="visa_id" value="{{ $visa->id }}">
+                                <input type="hidden" name="document_master_id" value="{{ $master->id }}">
+                                <div class="mb-3">
+                                    <label class="form-label">Upload File</label>
+                                    <input type="file" name="file_path" class="form-control" required>
+                                </div>
+                                <small>Extension allowed: {{$master->allowed_file_type}}, with max file: {{$master->max_file_size}}MB</small>
+                            </form>
+                        @else
+                            <div class="alert alert-info">Maximum number of files uploaded ({{ $master->max_number_of_documents }}).</div>
+                        @endif
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
 </div>
 @endsection
+@push('scripts')
+<script>
+document.querySelectorAll('.auto-upload-form input[type="file"]').forEach(function(input) {
+    input.addEventListener('change', function() {
+        console.log('File input changed');
+        if (input.files.length > 0) {
+            input.closest('form').submit();
+        }
+    });
+});
+</script>
+@endpush

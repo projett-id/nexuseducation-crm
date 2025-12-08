@@ -1,10 +1,24 @@
 @extends('admin.layouts.app')
 
 @section('content')
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+@if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 <div class="container">
     <h3 class="mb-4">Visa Applications</h3>
 
-    <a href="{{ route('visa.create') }}" class="btn btn-primary mb-3">Create New Application</a>
+    <a href="{{ route('visa.create') }}" class="btn btn-primary mb-3">Create</a>
 
     <div class="card">
         <div class="card-body">
@@ -27,9 +41,7 @@
                         <td>{{ $v->email }}</td>
                         <td>{{ $v->created_at }}</td>
                         <td>
-                            <a href="{{ route('visa.show', $v->id) }}" class="btn btn-sm btn-info">View</a>
                             <a href="{{ route('visa.edit', $v->id) }}" class="btn btn-sm btn-warning">Edit</a>
-
                             <form action="{{ route('visa.destroy', $v->id) }}"
                                   method="POST"
                                   class="d-inline"

@@ -9,6 +9,7 @@ class MasterDocument extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'form_type',
         'document_name',
         'document_type',
         'description',

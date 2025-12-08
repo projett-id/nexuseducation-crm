@@ -28,7 +28,7 @@ class StudentController extends Controller
     {
         // For tab forms, you may need an empty $student object
         $student = new Student();
-        $documentMasters = MasterDocument::all();
+        $documentMasters = MasterDocument::whereIn('form_type',['General','Student'])->get();
         return view('student.create', compact('student', 'documentMasters'));
     }
 
@@ -63,7 +63,7 @@ class StudentController extends Controller
     {
         $country = Country::where('status',1)->get();
         $student = Student::findOrFail($id);
-        $documentMasters = MasterDocument::all();
+        $documentMasters = MasterDocument::whereIn('form_type',['General','Student'])->get();
         return view('student.show', compact('student', 'documentMasters','country'));
     }
 
@@ -72,7 +72,7 @@ class StudentController extends Controller
     {
         $country = Country::where('status',1)->get();
         $student = Student::findOrFail($id);
-        $documentMasters = MasterDocument::all();
+        $documentMasters = MasterDocument::whereIn('form_type',['General','Student'])->get();
         $countries = config('const.countries');
         $listLevelOfStudy = config('const.levels_of_study');
         $listDisciplines = config('const.disciplines');

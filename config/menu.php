@@ -14,6 +14,12 @@ return [
         'permission' => 'master-document.view',
     ],
     [
+        'title' => 'Visa',
+        'icon'  => 'bi bi-box2',
+        'route' => 'visa.index',
+        'permission' => 'visa.view',
+    ],
+    [
         'title' => 'Application',
         'icon'  => 'bi bi-download',
         'route' => 'application.list',

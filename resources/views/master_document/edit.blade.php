@@ -12,6 +12,12 @@
                     <label>Document Name *</label>
                     <input type="text" name="document_name" class="form-control" value="{{ $document->document_name }}" required>
                 </div>
+                <select name="document_type" class="form-control" required>
+                        <option value="">Choose One</option>
+                        <option value="General" {{ $document->form_type == 'General' ? 'selected':'' }}>General</option>
+                        <option value="Student" {{ $document->form_type == 'Student' ? 'selected':'' }}>Student</option>
+                        <option value="Visa" {{ $document->form_type == 'Visa' ? 'selected':'' }}>Visa</option>
+                    </select>
                 <div class="mb-3">
                     <label>Document Type *</label>
                     <select name="document_type" class="form-control" required>

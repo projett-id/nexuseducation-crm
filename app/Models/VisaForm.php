@@ -24,4 +24,9 @@ class VisaForm extends Model
         'active_visa', 'visa_rejected', 'visa_reject_reason', 'travel_history'
     ];
 
+    public function documents()
+    {
+        return $this->hasMany(VisaFormDocument::class,'visa_id');
+    }
+
 }

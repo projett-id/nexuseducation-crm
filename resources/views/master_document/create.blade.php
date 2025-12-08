@@ -12,8 +12,18 @@
                     <input type="text" name="document_name" class="form-control" required>
                 </div>
                 <div class="mb-3">
+                    <label>Form Type *</label>
+                    <select name="document_type" class="form-control" required>
+                        <option value="">Choose One</option>
+                        <option value="General">General</option>
+                        <option value="Student">Student</option>
+                        <option value="Visa">Visa</option>
+                    </select>
+                </div>
+                <div class="mb-3">
                     <label>Document Type *</label>
                     <select name="document_type" class="form-control" required>
+                        <option value="">Choose One</option>
                         <option value="Mandatory">Mandatory</option>
                         <option value="Additional">Additional</option>
                     </select>
