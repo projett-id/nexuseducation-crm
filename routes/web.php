@@ -34,6 +34,7 @@ use App\Http\Controllers\Backoffice\TagController;
 use App\Http\Controllers\Backoffice\VisaController;
 use App\Http\Controllers\Backoffice\PartnerSchoolController;
 use App\Http\Controllers\Backoffice\ProgramTypeController;
+use App\Http\Controllers\VisaFormController;
 
 /*
 |--------------------------------------------------------------------------
@@ -88,7 +89,7 @@ Route::prefix('student')->as('student.')->middleware(['auth', 'role:superadmin|a
     Route::resource('history-applications', StudentApplicationHistoryController::class)->except(['index', 'show', 'create', 'edit']);
     Route::put('history-applications/docs/{id}',[StudentApplicationHistoryController::class,'updateDocs'])->name('application.update.docs');
 })->middleware(['auth', 'role:superadmin|admin']);
-
+Route::resource('visa', VisaFormController::class)->middleware(['auth', 'role:superadmin|admin']);
 Route::middleware('auth')->group(function () {
     Route::get('/applications', [StudentController::class, 'listApplications'])->name('application.list');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
