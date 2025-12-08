@@ -76,7 +76,7 @@ class VisaFormController extends Controller
         // Update record
         $visa->update($request->all());
 
-        return redirect()->route('visa.show', $visa->id)
+        return redirect()->route('visa.edit', $visa->id)
             ->with('success', 'Visa application data has been updated successfully!');
     }
 
