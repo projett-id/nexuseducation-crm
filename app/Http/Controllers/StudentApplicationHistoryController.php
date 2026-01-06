@@ -14,7 +14,7 @@ class StudentApplicationHistoryController extends Controller
             'application_id' => 'required|exists:student_applications,id',
             'status' => 'required',
             'note' => 'required',
-            'attachment' => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048',
+            'attachment' => 'required|file|mimes:pdf,jpg,jpeg,png|max:30720',
         ]);
         
         if ($request->hasFile('attachment')) {
@@ -29,7 +29,7 @@ class StudentApplicationHistoryController extends Controller
     public function updateDocs(Request $request, $id){
         $history = StudentApplicationHistory::findOrFail($id);
         $validated = $request->validate([
-            'attachment' => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048',
+            'attachment' => 'required|file|mimes:pdf,jpg,jpeg,png|max:30720',
         ]);
         
         if ($request->hasFile('attachment')) {
@@ -48,7 +48,7 @@ class StudentApplicationHistoryController extends Controller
             'application_id' => 'required|exists:student_applications,id',
             'status' => 'required',
             'note' => 'required',
-            'attachment' => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048',
+            'attachment' => 'required|file|mimes:pdf,jpg,jpeg,png|max:30720',
         ]);
         
         if ($request->hasFile('attachment')) {
