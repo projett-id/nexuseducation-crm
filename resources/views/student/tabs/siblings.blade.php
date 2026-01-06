@@ -2,7 +2,7 @@
         @csrf
     <div class="card mb-4">
         <div class="card-header bg-primary text-white">
-            <strong>Emergency Contact</strong>
+            <strong>Siblings</strong>
         </div>
         <div class="card-body row">
             <input type="hidden" name="student_id" value="{{ $student->id }}">
