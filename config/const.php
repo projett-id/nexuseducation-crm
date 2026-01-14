@@ -279,11 +279,12 @@ return [
         "English Language",
         "Pre-Masters",
         "Research",
+        "Certificate",
         "Online",
         "Secondary school",
         "Higher secondary",
         "High school",
-        "Diploma"
+        "Diploma",
     ],
     'disciplines' => [
        "Accounting and Finance",

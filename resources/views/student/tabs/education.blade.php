@@ -175,14 +175,14 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label class="form-label">Level of study</label>
-                            <select class="form-control level-study-select" name="level_study" required>
+                            <select class="form-control level-study-select-applications" name="level_study" required>
                                 <option value="">Choose one</option>
                                 @foreach($listLevelOfStudy as $level)
                                     <option value="{{ $level }}">{{ $level }}</option>
                                 @endforeach
                                 <option value="Other">Other</option>
                             </select>
-                            <input type="text" name="level_study_other" class="form-control mt-2 level-study-other d-none" placeholder="Enter other level of study">
+                            <input type="text" name="level_study_other" class="form-control mt-2 level-study-other-applications d-none" placeholder="Enter other level of study">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Disciplines</label>

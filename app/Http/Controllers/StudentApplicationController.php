@@ -15,12 +15,16 @@ class StudentApplicationController extends Controller
             'country' => 'required|string',
             'institution_name' => 'required|string',
             'level_of_study' => 'required|string',
+            'level_study_other'=>'nullable|string',
             'start_date' => 'required',
             'programme' => 'required|string'
         ]);
         $validated['start_date'] = \Carbon\Carbon::createFromFormat('Y-m', $request->start_date)->startOfMonth();
         $country = json_decode($request->country)[0]->value ?? null;
         $validated['country'] = $country;
+        if ($validated['level_study'] === 'Other') {
+            $validated['level_study'] = $validated['level_study_other'];
+        }
         StudentApplications::create($validated);
         return back()->with('success', 'Applications was created.');
     }

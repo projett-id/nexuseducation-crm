@@ -13,6 +13,7 @@
                     <tr>
                         <th>First Name</th>
                         <th>Family Name</th>
+                        <th>Sub Agent</th>
                         <th>Email</th>
                         <th>Phone Number</th>
                         <th>Actions</th>
@@ -23,6 +24,7 @@
                     <tr>
                         <td>{{ $student->first_name }}</td>
                         <td>{{ $student->family_name }}</td>
+                        <td>{{ $student->agent_name }}</td>
                         <td>{{ $student->email }}</td>
                         <td>{{ $student->phone_number }}</td>
                         <td>

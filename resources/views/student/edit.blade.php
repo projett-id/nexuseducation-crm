@@ -97,6 +97,20 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
+    document.querySelectorAll('.level-study-select-applications').forEach(function(select){
+        select.addEventListener('change', function(){
+            const otherInput = this.closest('.mb-3').querySelector('.level-study-other-applications');
+            if (this.value === 'Other') {
+                otherInput.classList.remove('d-none');
+                otherInput.required = true;
+            } else {
+                otherInput.classList.add('d-none');
+                otherInput.required = false;
+                otherInput.value = '';
+            }
+        });
+    });
+
     // Discipline
     document.querySelectorAll('.discipline-select').forEach(function(select){
         select.addEventListener('change', function(){
