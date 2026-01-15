@@ -24,7 +24,7 @@
                     <tr>
                         <td>{{ $student->first_name }}</td>
                         <td>{{ $student->family_name }}</td>
-                        <td>{{ $student->agent_name }}</td>
+                        <td>{{ $student->agent_company }}</td>
                         <td>{{ $student->email }}</td>
                         <td>{{ $student->phone_number }}</td>
                         <td>
